@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { Platform,View,Text} from 'react-native';
+import { createStackNavigator, createBottomTabNavigator,createDrawerNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -20,7 +20,7 @@ const HomeStack = createStackNavigator(
 HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
-       focused={focused}
+      focused={focused}
       name={
         Platform.OS === 'ios' ? 'ios-home':'md-home'
       }
@@ -40,4 +40,22 @@ const tabNavigator = createBottomTabNavigator({
 
 tabNavigator.path = '';
 
-export default tabNavigator;
+const Drawer = () => (
+ <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <Text>Drawer Item 1</Text>
+    <Text>Drawer Item 2</Text>
+  </View>
+);
+
+const drawer = createDrawerNavigator(
+  {
+    Initial: tabNavigator
+  },
+  {
+    contentComponent: Drawer,
+    drawerPosition:'right'
+  },
+  
+);
+
+export default drawer;

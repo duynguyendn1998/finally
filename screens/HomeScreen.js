@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,FlatList,TextInput,Platform,TouchableOpacity} from 'react-native';
+import { View, Text,StyleSheet,FlatList,TextInput,Platform,TouchableOpacity,Image} from 'react-native';
 import { CheckBox} from 'react-native-elements';
 import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
@@ -30,13 +30,24 @@ export default class HomeScreen extends Component {
     );
   }
 
+  // checkedBox = props =>{
+  //   const name = props.id ==='2' ? 'QUANH ĐÂY':'HOT RATING';
+  //    return (
+  //       <CheckBox 
+  //             containerStyle={styles.checkStyle}
+  //             title={name}
+  //             checkedColor='green'
+  //       />
+  //   );
+  // };
+
+
   renderItem=({item})=>{
     return <FeedItem item={item} />
   };
 
   render() {
     const {listArticles,isCheckAround,isCheckRating,search} = this.state;
-    console.log("--------------"+search)
     return (
       <View style={styles.container}>
         <View style={styles.search}>
@@ -46,7 +57,8 @@ export default class HomeScreen extends Component {
                 name={
                   Platform.OS === 'ios' ? 'ios-search':'md-search'
                 }
-                size={30}/>             
+                size={30}
+                color='#bdc3c7'/>             
             </TouchableOpacity>
             <TextInput style={styles.inputSearch}
               placeholder='Tìm kiếm'
@@ -54,8 +66,8 @@ export default class HomeScreen extends Component {
               value={search}
             />
           </View>
-          <TouchableOpacity style={styles.IconMenu}>
-            <Ionicons 
+         <TouchableOpacity style={styles.IconMenu} onPress={this.props.navigation.openDrawer}>
+            <Ionicons
               name={
                 Platform.OS === 'ios' ? 'ios-menu':'md-menu'
               }
@@ -65,12 +77,14 @@ export default class HomeScreen extends Component {
         </View>
         <View style={styles.checkbox}>
           <CheckBox 
+              containerStyle={styles.checkStyle}
               title='HOT RATING'
               checkedColor='green'
               checked={isCheckRating}
               onPress={() => this.setState({isCheckRating: !isCheckRating})}
           />
           <CheckBox 
+            containerStyle={styles.checkStyle}
             title='QUANH ĐÂY'
             checkedColor='green'
             checked={isCheckAround}
@@ -102,12 +116,16 @@ const styles = StyleSheet.create({
   search:{
     marginTop:'6%',
     flex:0.1,
-    backgroundColor:'red',
+   // backgroundColor:'red',
     flexDirection:'row',
     justifyContent:'center',
     alignItems:'center'
   },
-  checkbox:{
+  checkStyle:{
+    backgroundColor:'#fff',
+    borderWidth:0
+  },
+    checkbox:{
     flex:0.13,
     flexDirection:'row',
     alignItems:'center',
@@ -131,14 +149,14 @@ const styles = StyleSheet.create({
      flexDirection:'row',
      flex:0.9,
      borderRadius:10,
-     backgroundColor:'gray',
+     backgroundColor:'#ececec',
      marginHorizontal:'2%',
      alignItems:'center'
     // height:34
   },
   inputSearch:{
     flex:0.91,
-    backgroundColor:'yellow',
+   // backgroundColor:'yellow',
     height:'75%',
     fontSize:16,
     marginRight:'1%'
@@ -146,7 +164,7 @@ const styles = StyleSheet.create({
   iconSearch:{
     marginLeft:'2%',
     flex:0.09,
-    backgroundColor:'blue'
+    //backgroundColor:'blue'
   },
   IconMenu:{
     flex:0.1,
