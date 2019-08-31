@@ -9,28 +9,28 @@ export const list = [
     {
       id: 2,
       image:'http://channel.mediacdn.vn/prupload/879/2017/11/img20171110120527350.jpg',
-      name:'the coffee hours',
+      name:'the coffee hours1',
       status:'cung duoc',
       km:'5km'
     },
     {
       id: 3,
       image:'http://channel.mediacdn.vn/prupload/879/2017/11/img20171110120527350.jpg',
-      name:'the coffee hours',
+      name:'the coffee hours2',
       status:'cung duoc',
       km:'5km'
     },
     {
       id: 4,
       image:'http://channel.mediacdn.vn/prupload/879/2017/11/img20171110120527350.jpg',
-      name:'the coffee hours',
+      name:'the coffee hours3',
       status:'cung duoc',
       km:'5km'
     },
     {
       id:5,
       image:'http://channel.mediacdn.vn/prupload/879/2017/11/img20171110120527350.jpg',
-      name:'the coffee hours',
+      name:'the coffee hours4',
       status:'cung duoc',
       km:'5km'
     },

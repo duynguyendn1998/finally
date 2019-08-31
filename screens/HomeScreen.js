@@ -41,12 +41,15 @@ export default class HomeScreen extends Component {
   //   );
   // };
 
-
   renderItem=({item})=>{
-    return <FeedItem item={item} />
+    return (
+          <FeedItem item={item} />
+    )
+  
   };
 
   render() {
+    console.log(this.props.navigation.getParam('userid'));
     const {listArticles,isCheckAround,isCheckRating,search} = this.state;
     return (
       <View style={styles.container}>
@@ -96,7 +99,7 @@ export default class HomeScreen extends Component {
             <FlatList
               data={listArticles}
               renderItem={this.renderItem}
-              //keyExtractor={item => item.name}
+              keyExtractor={item => item.name}
             />
         </View>
       </View>
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     marginRight: 10,
-    fontFamily:'sans-serif',
+    //fontFamily:'sans-serif',
     fontWeight:'200',
     marginHorizontal:'3%'
   },

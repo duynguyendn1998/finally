@@ -4,6 +4,8 @@ import { createStackNavigator, createBottomTabNavigator,createDrawerNavigator} f
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import LoginScreen from '../screens/LoginScreen';
+import History from '../components/History';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -12,6 +14,7 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
+    Login: LoginScreen,
     Home: HomeScreen,
   },
   config
@@ -40,22 +43,15 @@ const tabNavigator = createBottomTabNavigator({
 
 tabNavigator.path = '';
 
-const Drawer = () => (
- <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    <Text>Drawer Item 1</Text>
-    <Text>Drawer Item 2</Text>
-  </View>
-);
-
-const drawer = createDrawerNavigator(
+const history = createDrawerNavigator(
   {
     Initial: tabNavigator
   },
   {
-    contentComponent: Drawer,
+    contentComponent: History,
     drawerPosition:'right'
   },
   
 );
 
-export default drawer;
+export default history;

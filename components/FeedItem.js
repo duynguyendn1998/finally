@@ -50,7 +50,7 @@ const styles= StyleSheet.create({
     fontSize: 16,
     color: 'black',
     marginRight: 10,
-    fontFamily:'sans-serif'
+    //fontFamily:'sans-serif'
   },
   wrapper:{
     marginHorizontal:'5%',
