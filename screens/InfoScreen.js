@@ -25,7 +25,6 @@ export default class InfoScreen extends Component {
       latitudeDelta: 0.005,
       longitudeDelta: 0.005,
     }
-    console.log(region);
     coordinate = {
       latitude: this.state.location.lat,
       longitude: this.state.location.lng,
