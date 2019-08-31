@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,FlatList,TextInput,Platform,TouchableOpacity,Image} from 'react-native';
+import { View, Text,StyleSheet,FlatList,Platform,TouchableOpacity,Image} from 'react-native';
 import { CheckBox} from 'react-native-elements';
 import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
 import { Ionicons } from '@expo/vector-icons';
-
+import SearchBar from '../components/SearchBar';
 
 
 export default class HomeScreen extends Component {
@@ -14,13 +14,8 @@ export default class HomeScreen extends Component {
       isCheckRating:true,
       isCheckAround:false,
       listArticles:list,
-      search:'',
     };
   }
-
-  updateSearch = search => {
-    this.setState({search});
-  };
 
   iconSearch =()=>{
     return(
@@ -40,10 +35,14 @@ export default class HomeScreen extends Component {
   //       />
   //   );
   // };
-
+  getInfo = (item) =>{
+    this.props.navigation.navigate('Info',{'item':item});
+  }
   renderItem=({item})=>{
     return (
-          <FeedItem item={item} />
+      <TouchableOpacity onPress={ () => this.getInfo(item)}>
+        <FeedItem item={item} />
+      </TouchableOpacity>
     )
   
   };
@@ -53,30 +52,9 @@ export default class HomeScreen extends Component {
     const {listArticles,isCheckAround,isCheckRating,search} = this.state;
     return (
       <View style={styles.container}>
+        
         <View style={styles.search}>
-          <View style={styles.containerSearch}>
-            <TouchableOpacity style={styles.iconSearch} onPress={()=>this.updateSearch}>
-              <Ionicons
-                name={
-                  Platform.OS === 'ios' ? 'ios-search':'md-search'
-                }
-                size={30}
-                color='#bdc3c7'/>             
-            </TouchableOpacity>
-            <TextInput style={styles.inputSearch}
-              placeholder='Tìm kiếm'
-              onChangeText={this.updateSearch}
-              value={search}
-            />
-          </View>
-         <TouchableOpacity style={styles.IconMenu} onPress={this.props.navigation.openDrawer}>
-            <Ionicons
-              name={
-                Platform.OS === 'ios' ? 'ios-menu':'md-menu'
-              }
-              size={30}
-            />
-          </TouchableOpacity>
+          <SearchBar menu={this.props.navigation.openDrawer}/>
         </View>
         <View style={styles.checkbox}>
           <CheckBox 
@@ -108,7 +86,8 @@ export default class HomeScreen extends Component {
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+  title:"Home"
+  //header: null,
 };
 
 const styles = StyleSheet.create({
@@ -146,30 +125,4 @@ const styles = StyleSheet.create({
     fontWeight:'200',
     marginHorizontal:'3%'
   },
-  containerSearch:{
-    // marginTop:'3%',
-      height:42,
-     flexDirection:'row',
-     flex:0.9,
-     borderRadius:10,
-     backgroundColor:'#ececec',
-     marginHorizontal:'2%',
-     alignItems:'center'
-    // height:34
-  },
-  inputSearch:{
-    flex:0.91,
-   // backgroundColor:'yellow',
-    height:'75%',
-    fontSize:16,
-    marginRight:'1%'
-  },
-  iconSearch:{
-    marginLeft:'2%',
-    flex:0.09,
-    //backgroundColor:'blue'
-  },
-  IconMenu:{
-    flex:0.1,
-  }
 });
