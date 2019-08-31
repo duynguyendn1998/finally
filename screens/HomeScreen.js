@@ -48,7 +48,6 @@ export default class HomeScreen extends Component {
   };
 
   render() {
-    console.log(this.props.navigation.getParam('userid'));
     const {listArticles,isCheckAround,isCheckRating,search} = this.state;
     return (
       <View style={styles.container}>

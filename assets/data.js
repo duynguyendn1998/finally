@@ -4,6 +4,7 @@ export const list = [
       image:'http://channel.mediacdn.vn/prupload/879/2017/11/img20171110120527350.jpg',
       name:'the coffee hours',
       status:'cung duoc',
+      address:'518 Phan Văn Trị, Phường 7, quận Gò Vấp, Hồ Chí Minh, Việt Nam',
       km:'5km'
     },
     {
