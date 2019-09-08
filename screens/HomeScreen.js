@@ -51,7 +51,6 @@ export default class HomeScreen extends Component {
     const {listArticles,isCheckAround,isCheckRating,search} = this.state;
     return (
       <View style={styles.container}>
-        
         <View style={styles.search}>
           <SearchBar menu={this.props.navigation.openDrawer}/>
         </View>
@@ -85,8 +84,7 @@ export default class HomeScreen extends Component {
 }
 
 HomeScreen.navigationOptions = {
-  title:"Home"
-  //header: null,
+  header:null,
 };
 
 const styles = StyleSheet.create({

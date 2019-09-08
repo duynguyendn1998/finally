@@ -39,7 +39,9 @@ export default class LoginScreen extends React.Component{
         )
     }
 }
-
+LoginScreen.navigationOptions = {
+    header:null,
+  };
 const styles = StyleSheet.create({
     container: {
         flex: 1,

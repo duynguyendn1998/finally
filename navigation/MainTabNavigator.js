@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform,View,Text} from 'react-native';
+import { Platform} from 'react-native';
 import { createStackNavigator, createBottomTabNavigator,createDrawerNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -18,36 +18,20 @@ const HomeStack = createStackNavigator(
     Login: LoginScreen,
     Home: HomeScreen,
     Info: InfoScreen,
+    
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios' ? 'ios-home':'md-home'
-      }
-    />
-  ),
+ HomeStack.navigationOptions = {
+    header: null,
 };
+ HomeStack.path = '';
 
-HomeStack.path = '';
-
-const tabNavigator = createBottomTabNavigator({   
-   HomeStack,
-},{
-  tabBarOptions:{
-    showLabel:false
-  }
-});
-
-tabNavigator.path = '';
 
 const history = createDrawerNavigator(
   {
-    Initial: tabNavigator
+    Initial: HomeStack
   },
   {
     contentComponent: History,

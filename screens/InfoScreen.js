@@ -48,8 +48,7 @@ export default class InfoScreen extends Component {
 }
 
 InfoScreen.navigationOptions = {
-  title:"Info"
-  //header: null,
+  header: null,
 };
 const styles= StyleSheet.create({
   article:{
