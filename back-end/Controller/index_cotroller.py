@@ -1,9 +1,9 @@
-import json
+import json 
 
 def index():
     # Coder here
-    return None
+    return "Hello Index "
 
 def merchants():
     # Code here
-    return None
+    return "Hello merchants"
