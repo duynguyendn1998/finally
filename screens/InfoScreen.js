@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet,View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/SearchDesign';
 import FeedItem from '../components/FeedItem';
 export default class InfoScreen extends Component {
   constructor(props) {

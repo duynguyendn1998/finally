@@ -3,8 +3,7 @@ import { View, Text,StyleSheet,FlatList,Platform,TouchableOpacity,Image} from 'r
 import { CheckBox} from 'react-native-elements';
 import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
-import { Ionicons } from '@expo/vector-icons';
-import SearchBar from '../components/SearchBar';
+import SearchDesign from '../components/SearchDesign';
 
 
 export default class HomeScreen extends Component {
@@ -16,25 +15,6 @@ export default class HomeScreen extends Component {
       listArticles:list,
     };
   }
-
-  iconSearch =()=>{
-    return(
-      <View>
-
-      </View>
-    );
-  }
-
-  // checkedBox = props =>{
-  //   const name = props.id ==='2' ? 'QUANH ĐÂY':'HOT RATING';
-  //    return (
-  //       <CheckBox 
-  //             containerStyle={styles.checkStyle}
-  //             title={name}
-  //             checkedColor='green'
-  //       />
-  //   );
-  // };
   getInfo = (item) =>{
     this.props.navigation.navigate('Info',{'item':item});
   }
@@ -44,7 +24,6 @@ export default class HomeScreen extends Component {
         <FeedItem item={item} />
       </TouchableOpacity>
     )
-  
   };
 
   render() {
@@ -52,7 +31,8 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.search}>
-          <SearchBar menu={this.props.navigation.openDrawer}/>
+          <SearchDesign menu={this.props.navigation.openDrawer}/>
+
         </View>
         <View style={styles.checkbox}>
           <CheckBox 
@@ -89,6 +69,7 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
+   // marginVertical:'5%',
     flex: 1,
     backgroundColor: '#fff',
   },
