@@ -38,7 +38,6 @@ Splash2Screen.navigationOptions = {
 const styles=StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'red',
   },
   buttonLable:{
     flex:0.92,

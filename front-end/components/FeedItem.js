@@ -26,9 +26,6 @@ export default class FeedItem extends Component {
     );
   }
 }
-LoginScreen.navigationOptions = {
-  title:"Login"
-};
 
 const styles= StyleSheet.create({
   container: {

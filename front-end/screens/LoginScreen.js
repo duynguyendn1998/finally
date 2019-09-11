@@ -1,11 +1,12 @@
 import React from 'react';
-import { TouchableOpacity, TextInput,Image, StyleSheet, Text, View } from 'react-native';
+import {  TextInput,TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
 export default class LoginScreen extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            userid:''
+            userid:'',
+            password:''
         }
     }
     onLogin = () =>{
@@ -16,24 +17,36 @@ export default class LoginScreen extends React.Component{
             userid:text
         })
     }
+    changePass = (text) =>{
+        this.setState({
+            password:text
+        })
+    }
     render(){
+        const {password,userid}=this.state;
         return(
             <View style={styles.container}>
-                <Image style={styles.image}></Image>
-                <View style={styles.inputLogin}>
-                    <TextInput 
-                        onChangeText={this.changeText}
-                        style={styles.textInput}
-                        placeholder="Số điện thoại hoặc email"
-                    />
-                    <TextInput 
-                        style={styles.textInput}
-                        placeholder="Mật khẩu"
-                        secureTextEntry={true}
-                    />
+                <Text style={styles.title}>Đăng nhập</Text>
+                <View style={styles.inputArea}>
+                    <Text style={styles.lable}>SỐ ĐIỆN THOẠI</Text>
+                    <TextInput style={styles.inputText}
+                    placeholder='Vui lòng nhập số điện thoại của bạn'
+                    onChangeText={this.changeText}
+                    value={userid} />
+                </View>
+                <View style={styles.inputArea}>
+                    <Text  style={styles.lable}>MẬT KHẨU</Text>
+                    <TextInput style={styles.inputText}
+                    secureTextEntry={true}
+                    placeholder='6 ký tự trở lên'
+                    onChangeText={this.changePass}
+                    value={password} />
                 </View>
                 <TouchableOpacity style={styles.buttonLogin} onPress={this.onLogin}>
-                    <Text style={{fontWeight:"bold",}}>Đăng nhập</Text>
+                    <Text style={[styles.lable,{marginTop:'3.5%'}]}>ĐĂNG NHẬP</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text style={[styles.lable,{marginTop:'3.5%'}]}>Quên mật khẩu?</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -45,32 +58,45 @@ LoginScreen.navigationOptions = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ED3E7A',
         alignItems: 'center',
     },
-
-    image:{
-        flex:0.3,
-        alignSelf: 'stretch',
-        backgroundColor:"red"
+    title:{
+        marginTop:'6%',
+        fontSize:25,
+        fontStyle:'normal',
+        color:'#ffffff',
+        fontWeight:'bold',
+       // backgroundColor:'blue',
     },
-
-    inputLogin:{
-        paddingTop:50,
-        flex:0.2,
+    inputArea:{
+        width: '86%',
+        height: 80,
+       // backgroundColor:'blue',
+        marginTop:'6%',
+        marginHorizontal:'7%'
     },
-    textInput:{
-        height: 40,
-        width: 400,
-        fontSize: 24,
-        borderWidth: 1,
-        borderColor: 'lightblue'
+    lable:{
+        fontSize:17,
+        color:'#ffffff',
+    },
+    inputText:{
+        fontSize:18,
+        backgroundColor:'#ffffff',
+        borderRadius:6,
+        height:50,
+        marginTop:5
     },
     buttonLogin:{
-        alignItems:"center",
-        justifyContent:"center",
-        flex:0.05,
-        width:200,
-        backgroundColor:"green",
+        width: '86%',
+        height: 50,
+        backgroundColor:'#5F2237',
+        marginTop:'15%',
+        marginHorizontal:'7%',
+        alignItems:'center',
+        borderRadius:6
+       
     }
+
+    
 });

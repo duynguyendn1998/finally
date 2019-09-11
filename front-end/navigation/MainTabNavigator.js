@@ -19,9 +19,9 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
-    Splash1:Splash1Screen,
-    Splash2:Splash2Screen,
-    Splash3:Splash3Screen,
+    //Splash1:Splash1Screen,
+    //Splash2:Splash2Screen,
+    //Splash3:Splash3Screen,
     Login: LoginScreen,
     Home: HomeScreen,
     Info: InfoScreen,
