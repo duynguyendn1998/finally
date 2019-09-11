@@ -22,7 +22,7 @@ const HomeStack = createStackNavigator(
     //Splash1:Splash1Screen,
     //Splash2:Splash2Screen,
     //Splash3:Splash3Screen,
-    Login: LoginScreen,
+   // Login: LoginScreen,
     Home: HomeScreen,
     Info: InfoScreen,
     

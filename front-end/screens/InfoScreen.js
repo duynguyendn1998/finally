@@ -34,10 +34,10 @@ export default class InfoScreen extends Component {
         <View style={styles.search}>
           <SearchBar menu={this.props.navigation.openDrawer}/>
         </View>
-        <TouchableOpacity style={styles.article}>
-          <FeedItem item={this.props.navigation.getParam('item')} />
+         <TouchableOpacity style={styles.article}>
+          <FeedItem  item={this.props.navigation.getParam('item')} />
         </TouchableOpacity>
-        <MapView style={{flex: 1}} region={region}>
+        <MapView style={{flex:0.7}} region={region}>
           <Marker 
             coordinate={coordinate}
           />
@@ -46,25 +46,26 @@ export default class InfoScreen extends Component {
     );
   }
 }
-
 InfoScreen.navigationOptions = {
   header: null,
 };
 const styles= StyleSheet.create({
-  article:{
-    flex:0.3,
-  },
-
   container: {
+    marginVertical:'3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
-  
   search:{
     marginTop:'6%',
     flex:0.1,
     flexDirection:'row',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    borderBottomWidth:0.5,
+  },
+  article:{
+    marginHorizontal:'3%',
+    flex:0.2,
+  //  backgroundColor:'red'
   },
 })

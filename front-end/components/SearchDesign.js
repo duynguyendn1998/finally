@@ -19,30 +19,14 @@ export default class SearchDesign extends Component {
       <View style={styles.container}>
         <View style={styles.containerSearch}> 
           <SearchBar
-          round
-          containerStyle={style={backgroundColor:'white'}}
-          inputStyle={styles.inputSearch}
-          onChangeText={this.updateSearch}
-          placeholder='Nhập từ khóa tìm kiếm'
-          value={this.state.search} 
+            lightTheme round 
+            containerStyle={style=styles.containerStyle}
+            inputStyle={styles.inputSearch}
+            onChangeText={this.updateSearch}
+            placeholder='Nhập từ khóa tìm kiếm'
+            value={this.state.search} 
            />
         </View>
-       
-        {/* <View >
-            <TouchableOpacity style={styles.iconSearch} onPress={()=>this.updateSearch}>
-              <Ionicons
-                    name={
-                    Platform.OS === 'ios' ? 'ios-search':'md-search'
-                    }
-                    size={27}
-                    color='#666263'/>             
-            </TouchableOpacity>
-            <TextInput style={styles.inputSearch}
-            placeholder='Nhập từ khóa tìm kiếm'
-            onChangeText={this.updateSearch}
-            value={this.state.search}
-            />
-        </View> */}
       <TouchableOpacity style={styles.IconMenu} onPress={this.props.menu}>
         <Entypo
           name='dots-three-vertical'
@@ -58,13 +42,19 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     flexDirection:'row',
-    marginRight:'1%'
+    marginRight:'1%',
+  },
+  containerStyle:{
+    marginLeft:'1%',
+    backgroundColor:"#fff",
+    borderBottomColor: 'transparent',
+    borderTopColor: 'transparent'
   },
   containerSearch:{
       flex:0.93,
   },
   inputSearch:{
-     backgroundColor:'white'
+    color:'#000'
   },
   outputSearch:{
     backgroundColor:'white'

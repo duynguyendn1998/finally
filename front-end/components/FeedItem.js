@@ -12,9 +12,9 @@ export default class FeedItem extends Component {
   render() {
     const {item:{image,name,km,status}}=this.props;
     return (
+      <View >
         <View style={styles.container}>
             <Image style={styles.image} source={{uri:image}} />
-        
           <View style={styles.info}>
             <View style={styles.wrapper}>
               <Text style={styles.label}>{name}</Text>
@@ -23,6 +23,7 @@ export default class FeedItem extends Component {
             </View>
           </View>
         </View>
+      </View>
     );
   }
 }
@@ -33,8 +34,8 @@ const styles= StyleSheet.create({
     height:94,
     backgroundColor: '#fff',
     flexDirection:'row',
-    marginHorizontal:'3%',
-    marginVertical:'2%'
+    marginVertical:'2%',
+    
   },
   image:{
     flex:0.3,

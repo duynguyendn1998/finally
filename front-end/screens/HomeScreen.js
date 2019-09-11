@@ -4,6 +4,7 @@ import { CheckBox} from 'react-native-elements';
 import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
 import SearchDesign from '../components/SearchDesign';
+import { thisExpression } from '@babel/types';
 
 
 export default class HomeScreen extends Component {
@@ -20,11 +21,44 @@ export default class HomeScreen extends Component {
   }
   renderItem=({item})=>{
     return (
-      <TouchableOpacity onPress={ () => this.getInfo(item)}>
+      <TouchableOpacity style={styles.wrapperContainerItem} onPress={ () => this.getInfo(item)}>
         <FeedItem item={item} />
       </TouchableOpacity>
     )
   };
+
+  oncheckRating= props => {
+    const {isCheckRating}=this.state;
+    const color = isCheckRating === true ? '#ED3E7A':null;
+    const textCheck={color:color,fontSize:18};
+    return(
+      <CheckBox
+        containerStyle={styles.checkStyle}
+        textStyle={textCheck}
+        title='PHỔ BIẾN'
+        size={40}
+        checkedColor='#ED3E7A'
+        checked={isCheckRating}
+        onPress={() => this.setState({isCheckRating: !isCheckRating})}
+      />
+    );
+  }
+    oncheckAround= props => {
+      const {isCheckAround}=this.state;
+      const color = isCheckAround === true ? '#ED3E7A':null;
+      const textCheck={color:color,fontSize:18};
+      return(
+        <CheckBox
+          containerStyle={styles.checkStyle}
+          textStyle={textCheck}
+          title='QUANH ĐÂY'
+          size={40}
+          checkedColor='#ED3E7A'
+          checked={isCheckAround}
+          onPress={() => this.setState({isCheckAround: !isCheckAround})}
+        />
+      );
+  }
 
   render() {
     const {listArticles,isCheckAround,isCheckRating,search} = this.state;
@@ -35,23 +69,11 @@ export default class HomeScreen extends Component {
 
         </View>
         <View style={styles.checkbox}>
-          <CheckBox 
-              containerStyle={styles.checkStyle}
-              title='HOT RATING'
-              checkedColor='green'
-              checked={isCheckRating}
-              onPress={() => this.setState({isCheckRating: !isCheckRating})}
-          />
-          <CheckBox 
-            containerStyle={styles.checkStyle}
-            title='QUANH ĐÂY'
-            checkedColor='green'
-            checked={isCheckAround}
-            onPress={() => this.setState({isCheckAround: !isCheckAround})}
-          />
+          <this.oncheckRating/>
+          <this.oncheckAround/>
         </View>
         <View style={styles.content}>
-            <Text style={styles.label}>Đề xuất cho bạn</Text>
+            <Text style={styles.label}>Thèm món này chứ?</Text>
             <FlatList
               data={listArticles}
               renderItem={this.renderItem}
@@ -69,13 +91,14 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-   // marginVertical:'5%',
+    marginVertical:'3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
   search:{
     marginTop:'6%',
     flex:0.1,
+    borderBottomWidth:0.5,
    // backgroundColor:'red',
     flexDirection:'row',
     justifyContent:'center',
@@ -85,18 +108,22 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     borderWidth:0
   },
-    checkbox:{
+  checkbox:{
     flex:0.13,
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-around',
+  },
+  wrapperContainerItem:{
+    marginHorizontal:'3%',
+    borderBottomWidth:0.5
   },
   content:{
     flex:0.77,
     //backgroundColor:'green'
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     color: 'black',
     marginRight: 10,
     //fontFamily:'sans-serif',
