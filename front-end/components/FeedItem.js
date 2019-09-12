@@ -12,15 +12,13 @@ export default class FeedItem extends Component {
   render() {
     const {item:{image,name,km,status}}=this.props;
     return (
-      <View >
-        <View style={styles.container}>
-            <Image style={styles.image} source={{uri:image}} />
-          <View style={styles.info}>
-            <View style={styles.wrapper}>
-              <Text style={styles.label}>{name}</Text>
-              <Text style={{color:'gray',fontSize:14}}>{status}</Text>
-              <Text style={[styles.label,{marginVertical:'5%'}]}>{km}</Text>
-            </View>
+      <View style={styles.container}>
+          <Image style={styles.image} source={{uri:image}} />
+        <View style={styles.info}>
+          <View style={styles.wrapper}>
+            <Text style={styles.label}>{name}</Text>
+            <Text style={{color:'gray',fontSize:14}}>{status}</Text>
+            <Text style={[styles.label,{marginVertical:'5%'}]}>{km}</Text>
           </View>
         </View>
       </View>
@@ -35,7 +33,6 @@ const styles= StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection:'row',
     marginVertical:'2%',
-    
   },
   image:{
     flex:0.3,
