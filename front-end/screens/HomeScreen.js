@@ -65,7 +65,7 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.search}>
-          <SearchDesign menu={this.props.navigation.openDrawer}/>
+          <SearchDesign menu={() =>this.props.navigation.navigate('History')}/>
         </View>
         <View style={styles.checkbox}>
           <this.oncheckRating/>

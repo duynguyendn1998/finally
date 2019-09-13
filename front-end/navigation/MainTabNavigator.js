@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform} from 'react-native';
-import { createStackNavigator,createDrawerNavigator} from 'react-navigation';
+import { Text, TouchableOpacity, Button, Platform } from 'react-native';
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -11,39 +11,36 @@ import Splash1Screen from '../screens/Splash1Screen';
 import Splash2Screen from '../screens/Splash2Screen';
 import Splash3Screen from '../screens/Splash3Screen';
 
-
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
-
+const HistoryStack = createStackNavigator(
+  {
+    History: History,
+    History1: History
+  }
+);
+HistoryStack.navigationOptions = {
+  header:null
+};
+HistoryStack.path = '';
 const HomeStack = createStackNavigator(
   {
-    //Splash1:Splash1Screen,
-    //Splash2:Splash2Screen,
-    //Splash3:Splash3Screen,
-   // Login: LoginScreen,
+    // Splash1:Splash1Screen,
+    // Splash2:Splash2Screen,
+    // Splash3:Splash3Screen,
+    Login: LoginScreen,
     Home: HomeScreen,
     Info: InfoScreen,
-    
+    History: HistoryStack
+
   },
   config
 );
- HomeStack.navigationOptions = {
-    header: null,
+HomeStack.navigationOptions = {
+  header: null,
 };
- HomeStack.path = '';
+HomeStack.path = '';
 
-
-const history = createDrawerNavigator(
-  {
-    Initial: HomeStack
-  },
-  {
-    contentComponent: History,
-    drawerPosition:'right'
-  },
-  
-);
-
-export default history;
+export default HomeStack;
