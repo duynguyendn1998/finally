@@ -20,7 +20,7 @@ export default class History extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.history}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
             <Text style={{ color: "#000000", fontSize: 30 }}>Lịch sử giao dịch                     ></Text>
           </TouchableOpacity>
           <TouchableOpacity>
