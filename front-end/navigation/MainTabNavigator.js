@@ -7,7 +7,6 @@ import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import InfoScreen from '../screens/InfoScreen';
 import History from '../components/History';
-import HistoryScreen from '../screens/HistoryScreen';
 import Splash1Screen from '../screens/Splash1Screen';
 import Splash2Screen from '../screens/Splash2Screen';
 import Splash3Screen from '../screens/Splash3Screen';
@@ -18,8 +17,8 @@ const config = Platform.select({
 });
 const HistoryStack = createStackNavigator(
   {
-    Home: History,
-    History:HistoryScreen
+    History: History,
+    History1: History
   }
 );
 HistoryStack.navigationOptions = {

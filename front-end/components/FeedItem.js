@@ -13,7 +13,7 @@ export default class FeedItem extends Component {
     const {item:{image,name,km,status}}=this.props;
     return (
       <View style={styles.container}>
-          <Image style={styles.image} source={{uri:image}} />
+          <Image resizeMode={"contain"} style={styles.image} source={{uri:image}} />
         <View style={styles.info}>
           <View style={styles.wrapper}>
             <Text style={styles.label}>{name}</Text>
@@ -33,12 +33,13 @@ const styles= StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection:'row',
     marginVertical:'2%',
+    marginBottom:15
   },
   image:{
-    flex:0.3,
-    //backgroundColor:'red',
-    height:94,
-    resizeMode:"cover" 
+    width:100,
+    height:100,
+    resizeMode:"cover",
+    borderRadius:5
   },
   info:{
     flex: 0.7,

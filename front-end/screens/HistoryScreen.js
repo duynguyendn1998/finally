@@ -21,7 +21,7 @@ export default class HistoryScreen extends Component {
     render() {
         return (
             <View>
-                <Text style={{ padding: 20 }}> Bạn đã tìm kiếm </Text>
+                <Text style={{ padding: 20 }}> Những nơi bạn đã đến </Text>
                 <View>
                     <FlatList
                         data={list}

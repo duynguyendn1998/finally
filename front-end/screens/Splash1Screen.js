@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text,StyleSheet,TouchableOpacity,ImageBackground} from 'react-native';
-
+import {AsyncStorage} from 'react-native';
 export default class Splash1Screen extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,13 @@ export default class Splash1Screen extends Component {
   onNext = () =>{
     this.props.navigation.navigate("Splash2");
   }
-  onSkip = () =>{
+  onSkip = async () =>{
+    try{
+      await AsyncStorage.setItem("Splash","1");
+    }
+    catch(e){
+      console.log(e)
+    }
     this.props.navigation.navigate("Login");
   }
 
