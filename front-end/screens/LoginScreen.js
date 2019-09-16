@@ -1,5 +1,7 @@
 import React from 'react';
-import {  TextInput,TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import {  TextInput,TouchableOpacity, StyleSheet, Text, View,AsyncStorage } from 'react-native';
+
+const userInfo={userId:'123',password:'123'}
 
 export default class LoginScreen extends React.Component{
     constructor(props){
@@ -9,8 +11,15 @@ export default class LoginScreen extends React.Component{
             password:''
         }
     }
-    onLogin = () =>{
-        this.props.navigation.navigate('Home',{userid:this.state.userid});
+    onLogin = async () =>{
+        if(userInfo.userId===this.state.userid && userInfo.password===this.state.password)
+        {
+            await AsyncStorage.setItem('isLoggedIn','1')
+            this.props.navigation.navigate('Home');
+        }
+        else{
+            alert('Vui lòng kiểm tra lại số điện thoại và mật khẩu.')
+        }
     }
     changeText = (text) =>{
         this.setState({
@@ -22,6 +31,7 @@ export default class LoginScreen extends React.Component{
             password:text
         })
     }
+
     render(){
         const {password,userid}=this.state;
         return(
@@ -92,6 +102,7 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor:'#5F2237',
         marginHorizontal:'7%',
+        marginTop:'10%',
         alignItems:'center',
         borderRadius:6
        

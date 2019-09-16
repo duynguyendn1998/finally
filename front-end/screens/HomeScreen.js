@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,FlatList,Platform,TouchableOpacity,Image} from 'react-native';
+import { View, Text,StyleSheet,FlatList,AsyncStorage,TouchableOpacity,Image} from 'react-native';
 import { CheckBox} from 'react-native-elements';
 import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
@@ -60,13 +60,21 @@ export default class HomeScreen extends Component {
       );
   }
 
+  logout= async()=>{
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth')
+  }
+
   render() {
-    const {listArticles,isCheckAround,isCheckRating,search} = this.state;
+    const {listArticles} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.search}>
           <SearchDesign menu={() =>this.props.navigation.navigate('History')}/>
         </View>
+        <TouchableOpacity  onPress={this.logout}>
+          <Text >logout</Text>
+        </TouchableOpacity>
         <View style={styles.checkbox}>
           <this.oncheckRating/>
           <this.oncheckAround/>
