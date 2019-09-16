@@ -18,6 +18,13 @@ export default class InfoScreen extends Component {
       location
     });
   }
+  seeAdd=()=>{
+    return(
+      <View style={styles.search}>
+        <Text>hello moi nguoi</Text>
+      </View>
+    )
+  };
   render() {
     region={
       latitude: this.state.location.lat,
@@ -31,13 +38,13 @@ export default class InfoScreen extends Component {
     }  
     return (
       <View style={styles.container}>
-        <View style={styles.search}>
-          <SearchBar menu={this.props.navigation.openDrawer}/>
-        </View>
-         <TouchableOpacity style={styles.article}>
+         <View style={styles.article}>
           <FeedItem  item={this.props.navigation.getParam('item')} />
+        </View>
+        <TouchableOpacity style={styles.hint} onPress={this.seeAdd}>
+          <Text style={styles.lable}>Xem thêm</Text>
         </TouchableOpacity>
-        <MapView style={{flex:0.7}} region={region}>
+        <MapView style={{flex:0.7, marginHorizontal:'5%'}} region={region}>
           <Marker 
             coordinate={coordinate}
           />
@@ -63,6 +70,15 @@ const styles= StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     borderBottomWidth:0.5,
+  },
+  hint:{
+    flex:0.04,
+    marginLeft:'78%',
+    marginHorizontal: '5%',
+  },
+  lable:{
+    color:'#ED3E7A',
+    textDecorationLine:'underline'
   },
   article:{
     marginHorizontal:'3%',
