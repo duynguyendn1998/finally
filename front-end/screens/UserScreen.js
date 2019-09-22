@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,TouchableOpacity,AsyncStorage } from 'react-native';
+import { View, Text,StyleSheet,TouchableOpacity,AsyncStorage,Image } from 'react-native';
 import { Feather, AntDesign } from '@expo/vector-icons';
 export default class UserScreen extends Component {
   constructor(props) {
@@ -15,14 +15,16 @@ export default class UserScreen extends Component {
 
   render() {
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.info}>
             <TouchableOpacity onPress={() => this.props.navigation.pop()}>
                 <Feather name="x" size={27} color='#fff'/>
             </TouchableOpacity>
-            <TouchableOpacity>
-                <Text style={styles.textName}>Nguyen Van A</Text>
-            </TouchableOpacity>
+            <View style={styles.imageWrapper}>
+              <Image  style={styles.image}
+                    source={require('../assets//images//Splash1.png')}/>
+              <Text style={styles.textName}>Nguyen Van A</Text>
+            </View>
         </View>
         <View style={styles.content}>
             <View style={styles.wrapper}>
@@ -38,7 +40,7 @@ export default class UserScreen extends Component {
                 </TouchableOpacity>
             </View>
           <TouchableOpacity  onPress={this.logout}>
-          <Text style={[styles.textLable,{marginTop:'1.5%'}]}>Đăng xuất</Text>
+          <Text style={[styles.textLable,{marginTop:'3%'}]}>Đăng xuất</Text>
         </TouchableOpacity>
         </View>
       </View>
@@ -59,24 +61,37 @@ const styles = StyleSheet.create({
         marginTop:'2.4%',
         flex: 0.3,
         backgroundColor: "#ED3E7A",
-        alignItems: "flex-start",
-        justifyContent: "space-between"
       },
       content: {
         flex: 0.7,
+        marginHorizontal:'1.5%',
       },
       textLable:{
         color: "#000000",
         fontSize: 20
       },
       textName:{
+        //flex:0.96,
+        marginLeft: 8,
         color:'#fff',
-        fontSize:25
+        fontSize:25,
+      },
+      image:{
+        height:120,
+        width:120,
+        borderRadius:60,
+      },
+      imageWrapper:{
+        flex:1,
+        marginTop:40,
+        marginHorizontal:'1.5%',
+        flexDirection: 'row',
+        alignItems:'center',
       },
       wrapper:{
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        marginTop:'1.5%'
+        marginTop:'3%'
       }
 })
