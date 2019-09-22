@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { TextInput,Platform, TouchableOpacity,StyleSheet,View, Text } from 'react-native';
-import { Ionicons,Entypo } from '@expo/vector-icons';
+import { TouchableOpacity,StyleSheet,View} from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 import { SearchBar} from 'react-native-elements';
-import { ThemeColors } from 'react-navigation';
 export default class SearchDesign extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +14,7 @@ export default class SearchDesign extends Component {
     this.setState({search});
   };
   render() {
+    console.log(this.state.search)
     return (
       <View style={styles.container}>
         <View style={styles.containerSearch}> 

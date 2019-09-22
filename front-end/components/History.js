@@ -7,7 +7,10 @@ export default class History extends Component {
     this.state = {
     };
   }
-
+  logout= async()=>{
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth')
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -21,11 +24,14 @@ export default class History extends Component {
         </View>
         <View style={styles.history}>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
-            <Text style={{ color: "#000000", fontSize: 30 }}>Lịch sử giao dịch                     ></Text>
+            <Text style={styles.textLable}>Lịch sử giao dịch</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={{ color: "#000000", fontSize: 30 }}>Hỗ trợ                                          ></Text>
+            <Text style={styles.textLable}>Hỗ trợ</Text>
           </TouchableOpacity>
+          <TouchableOpacity  onPress={this.logout}>
+          <Text style={styles.textLable}>Đăng xuất</Text>
+        </TouchableOpacity>
         </View>
       </View>
     )
@@ -50,5 +56,9 @@ const styles = StyleSheet.create({
   },
   history: {
     flex: 0.8
+  },
+  textLable:{
+    color: "#000000",
+    fontSize: 25
   }
 })

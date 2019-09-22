@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,FlatList,AsyncStorage,TouchableOpacity,Image} from 'react-native';
-import { CheckBox} from 'react-native-elements';
+import { View, Text,StyleSheet,FlatList,TouchableOpacity,Image} from 'react-native';
+import { CheckBox, } from 'react-native-elements';
 import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
 import SearchDesign from '../components/SearchDesign';
-import { thisExpression } from '@babel/types';
 
 
 export default class HomeScreen extends Component {
@@ -60,21 +59,13 @@ export default class HomeScreen extends Component {
       );
   }
 
-  logout= async()=>{
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth')
-  }
-
   render() {
     const {listArticles} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.search}>
-          <SearchDesign menu={() =>this.props.navigation.navigate('History')}/>
+          <SearchDesign menu={() =>this.props.navigation.navigate('User')}/>
         </View>
-        <TouchableOpacity  onPress={this.logout}>
-          <Text >logout</Text>
-        </TouchableOpacity>
         <View style={styles.checkbox}>
           <this.oncheckRating/>
           <this.oncheckAround/>

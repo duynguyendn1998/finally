@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation';
 import HomeScreen from '../screens/HomeScreen';
 import InfoScreen from '../screens/InfoScreen';
 import History from '../components/History';
+import UserScreen from '../screens/UserScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -24,6 +25,7 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     Info: InfoScreen,
+    User:UserScreen,
     History: HistoryStack
   },
   config
