@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight:'bold',
     marginLeft:30,
-    fontFamily:'sans-serif',
+    // fontFamily:'sans-serif',
   }
 });

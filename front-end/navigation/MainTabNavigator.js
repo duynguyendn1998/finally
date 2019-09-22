@@ -12,22 +12,23 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
-const HistoryStack = createStackNavigator(
+const UserStack = createStackNavigator(
   {
-    History: History,
-    History1: History
+    User: UserScreen,
+    History: HistoryScreen
   }
 );
-HistoryStack.navigationOptions = {
+UserStack.navigationOptions = {
   header:null
 };
-HistoryStack.path = '';
+UserStack.path = '';
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     Info: InfoScreen,
-    User:UserScreen,
-    History: HistoryScreen,
+    User:UserStack,
+    // User:UserScreen,
+    // History: HistoryStack,
   },
   config
 );
