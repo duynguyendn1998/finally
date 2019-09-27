@@ -18,7 +18,8 @@ export default class LoginScreen extends React.Component{
             this.props.navigation.navigate('Home');
         }
         else{
-            alert('Vui lòng kiểm tra lại số điện thoại và mật khẩu.')
+            alert('Vui lòng kiểm tra lại số điện thoại và mật khẩu.');
+            this.setState({password:''})
         }
     }
     changeText = (text) =>{
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title:{
-        marginTop:'6%',
+        marginTop:'8%',
         fontSize:25,
         fontStyle:'normal',
         color:'#ffffff',

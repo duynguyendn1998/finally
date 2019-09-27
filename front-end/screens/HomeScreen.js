@@ -89,7 +89,7 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical:'3.5%',
+    marginTop:'3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     borderWidth:0
   },
   checkbox:{
-    flex:0.13,
+    flex:0.10,
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-around',
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     borderBottomWidth:0.5
   },
   content:{
-    flex:0.77,
+    flex:0.8,
     //backgroundColor:'green'
   },
   label: {

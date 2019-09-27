@@ -48,14 +48,12 @@ export default class InfoScreen extends Component {
         <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
           <Text style={styles.lable}>Xem thêm</Text>
         </TouchableOpacity>
-        <ScrollView>
           { this.state.content ? <this._seeAdd/> : null}
           <MapView style={{flex:0.7, marginHorizontal:'5%'}} region={region}>
             <Marker 
               coordinate={coordinate}
             />
          </MapView>
-        </ScrollView>
       </View>
     );
   }
@@ -66,13 +64,13 @@ InfoScreen.navigationOptions = {
 };
 const styles= StyleSheet.create({
   container: {
-    marginVertical:'3.5%',
+    marginTop:'3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
   hint:{
     flex:0.04,
-    marginLeft:'78%',
+    marginLeft:'73%',
     marginHorizontal: '5%',
   },
   lable:{
