@@ -143,7 +143,11 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
+<<<<<<< HEAD
     marginVertical: '3.5%',
+=======
+    marginTop:'3.5%',
+>>>>>>> 590c32fac9898256734d893816d368fa42d747bf
     flex: 1,
     backgroundColor: '#fff',
   },

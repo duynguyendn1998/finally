@@ -67,13 +67,13 @@ InfoScreen.navigationOptions = {
 };
 const styles = StyleSheet.create({
   container: {
-    marginVertical: '3.5%',
+    marginTop:'3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
-  hint: {
-    flex: 0.04,
-    marginLeft: '78%',
+  hint:{
+    flex:0.04,
+    marginLeft:'73%',
     marginHorizontal: '5%',
   },
   lable: {
