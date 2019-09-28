@@ -8,15 +8,15 @@ export default class FeedItem extends Component {
     };
   }
   render() {
-    const {item:{image,name,km,status}}=this.props;
+    const {item:{image,store_name,km,status}}=this.props;
     return (
       <View style={styles.container}>
-          <Image resizeMode={"contain"} style={styles.image} source={{uri:image}} />
+          <Image resizeMode={"contain"} style={styles.image} source={{uri:'http://channel.mediacdn.vn/prupload/879/2017/11/img20171110120527350.jpg'}} />
         <View style={styles.info}>
           <View style={styles.wrapper}>
-            <Text style={styles.label}>{name}</Text>
-            <Text style={{color:'gray',fontSize:14}}>{status}</Text>
-            <Text style={[styles.label,{marginVertical:'5%'}]}>{km}</Text>
+            <Text style={styles.label}>{store_name}</Text>
+            <Text style={{color:'gray',fontSize:14}}>Quá tuyệt</Text>
+            <Text style={[styles.label,{marginVertical:'5%'}]}>{Math.round(km*1000)} m</Text>
           </View>
         </View>
       </View>

@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet,View, Text ,ScrollView} from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import FeedItem from '../components/FeedItem';
 export default class InfoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location:{},
+      location: {},
       content: false
     };
   }
-  async componentWillMount(){
-    location= await fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+this.props.navigation.getParam('item').address+'&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAXk_ALvN0lYNWsbjhscoUQR24Cu93CQTU');
-    location = await location.json();
-    location = location.candidates[0].geometry.location;
+  async componentWillMount() {
+    let location = {
+      lat: this.props.navigation.getParam('item').latitude,
+      lng: this.props.navigation.getParam('item').longitude
+    }
     this.setState({
       location
     });
   }
-  _seeAdd=()=>{
-    return(
+  _seeAdd = () => {
+    return (
       <View>
         <Text>hello moi nguoi</Text>
       </View>
@@ -30,7 +31,7 @@ export default class InfoScreen extends Component {
   }
 
   render() {
-    region={
+    region = {
       latitude: this.state.location.lat,
       longitude: this.state.location.lng,
       latitudeDelta: 0.005,
@@ -39,23 +40,23 @@ export default class InfoScreen extends Component {
     coordinate = {
       latitude: this.state.location.lat,
       longitude: this.state.location.lng,
-    }  
+    }
     return (
       <View style={styles.container}>
         <View style={styles.article}>
-          <FeedItem  item={this.props.navigation.getParam('item')} />
+          <FeedItem item={this.props.navigation.getParam('item')} />
         </View>
         <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
           <Text style={styles.lable}>Xem thêm</Text>
         </TouchableOpacity>
-        <ScrollView>
-          { this.state.content ? <this._seeAdd/> : null}
-          <MapView style={{flex:0.7, marginHorizontal:'5%'}} region={region}>
-            <Marker 
-              coordinate={coordinate}
-            />
-         </MapView>
-        </ScrollView>
+        <View>
+          {this.state.content ? <this._seeAdd /> : null}
+        </View>
+        <MapView style={{ flex: 0.7, marginHorizontal: '5%' }} region={region}>
+          <Marker
+            coordinate={coordinate}
+          />
+        </MapView>
       </View>
     );
   }
@@ -64,24 +65,24 @@ InfoScreen.navigationOptions = {
   title: 'Info',
   //header: null,
 };
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    marginVertical:'3.5%',
+    marginVertical: '3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
-  hint:{
-    flex:0.04,
-    marginLeft:'78%',
+  hint: {
+    flex: 0.04,
+    marginLeft: '78%',
     marginHorizontal: '5%',
   },
-  lable:{
-    color:'#ED3E7A',
-    textDecorationLine:'underline'
+  lable: {
+    color: '#ED3E7A',
+    textDecorationLine: 'underline'
   },
-  article:{
-    marginHorizontal:'3%',
-    flex:0.2,
-  //  backgroundColor:'red'
+  article: {
+    marginHorizontal: '3%',
+    flex: 0.2,
+    //  backgroundColor:'red'
   },
 })

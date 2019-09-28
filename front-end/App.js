@@ -4,16 +4,19 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [Location, setLocation] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
-        startAsync={loadResourcesAsync}
+        startAsync={()=>loadResourcesAsync(setLocation)}
         onError={handleLoadingError}
         onFinish={() => handleFinishLoading(setLoadingComplete)}
       />
@@ -27,8 +30,7 @@ export default function App(props) {
     );
   }
 }
-
-async function loadResourcesAsync() {
+async function loadResourcesAsync(setLocation) {
   await Promise.all([
     Asset.loadAsync([
       require('./assets/images/robot-dev.png'),

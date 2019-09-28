@@ -9,12 +9,7 @@ export default class SearchDesign extends Component {
       search:''
     };
   }
-
-  updateSearch = search => {
-    this.setState({search});
-  };
   render() {
-    console.log(this.state.search)
     return (
       <View style={styles.container}>
         <View style={styles.containerSearch}> 
@@ -22,9 +17,9 @@ export default class SearchDesign extends Component {
             lightTheme round 
             containerStyle={style=styles.containerStyle}
             inputStyle={styles.inputSearch}
-            onChangeText={this.updateSearch}
+            onChangeText={this.props.updateSearch}
             placeholder='Nhập từ khóa tìm kiếm'
-            value={this.state.search} 
+            value={this.props.search} 
            />
         </View>
       <TouchableOpacity style={styles.IconMenu} onPress={this.props.menu}>
