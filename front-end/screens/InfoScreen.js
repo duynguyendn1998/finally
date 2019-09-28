@@ -7,7 +7,8 @@ export default class InfoScreen extends Component {
     super(props);
     this.state = {
       location: {},
-      content: false
+      content: false,
+      item:this.props.navigation.getParam('item'),
     };
   }
   async componentWillMount() {
@@ -22,7 +23,8 @@ export default class InfoScreen extends Component {
   _seeAdd = () => {
     return (
       <View>
-        <Text>hello moi nguoi</Text>
+        <Text>Địa chỉ: {this.state.item.store_address}</Text>
+        <Text>Thể loại: {this.state.item.category}</Text>
       </View>
     )
   };
@@ -55,6 +57,8 @@ export default class InfoScreen extends Component {
         <MapView style={{ flex: 0.7, marginHorizontal: '5%' }} region={region}>
           <Marker
             coordinate={coordinate}
+            title={this.state.item.store_name}
+            description={this.state.item.store_address}
           />
         </MapView>
       </View>
