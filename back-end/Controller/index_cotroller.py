@@ -59,7 +59,7 @@ def search(text):
     return lst_dict
 
 def distance(lon1, lat1, lon2, lat2): 
-    R = 10000 #radius in m 
+    R = 5000 #radius in m 
     x = (lon2-lon1) * cos(0.5*(lat2+lat1)) 
     y = (lat2-lat1) 
     return R * sqrt( x*x + y*y )
@@ -86,7 +86,6 @@ def predict():
             dictmodel[cat] = model
     
     today = datetime.datetime.now()
-    print(today.weekday())
     param = pd.DataFrame(np.array([[(today.hour + 1) % 7,1]]), columns=['hour','dayofweek_number'])
     pred = {}
     for cat in listCategory:
@@ -95,3 +94,12 @@ def predict():
             pred[cat] = pos
 
     return sorted(pred, key=pred.get, reverse=True)
+def cate():
+    lstcat = predict()
+    lst = []
+    for cat in lstcat:
+        for i in coll.find():
+            if (cat == i['category'].lower()):
+                i['_id'] = str(i['_id'])
+                lst.append(i)
+    return lst
