@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet,View, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet,View, Text ,ScrollView} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import SearchBar from '../components/SearchDesign';
 import FeedItem from '../components/FeedItem';
 export default class InfoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location:{}
+      location:{},
+      content: false
     };
   }
   async componentWillMount(){
@@ -18,13 +18,17 @@ export default class InfoScreen extends Component {
       location
     });
   }
-  seeAdd=()=>{
+  _seeAdd=()=>{
     return(
-      <View style={styles.search}>
+      <View>
         <Text>hello moi nguoi</Text>
       </View>
     )
   };
+  componentHideAndShow = () => {
+    this.setState(previousState => ({ content: !previousState.content }))
+  }
+
   render() {
     region={
       latitude: this.state.location.lat,
@@ -38,17 +42,18 @@ export default class InfoScreen extends Component {
     }  
     return (
       <View style={styles.container}>
-         <View style={styles.article}>
+        <View style={styles.article}>
           <FeedItem  item={this.props.navigation.getParam('item')} />
         </View>
-        <TouchableOpacity style={styles.hint} onPress={this.seeAdd}>
+        <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
           <Text style={styles.lable}>Xem thêm</Text>
         </TouchableOpacity>
-        <MapView style={{flex:0.7, marginHorizontal:'5%'}} region={region}>
-          <Marker 
-            coordinate={coordinate}
-          />
-        </MapView>
+          { this.state.content ? <this._seeAdd/> : null}
+          <MapView style={{flex:0.7, marginHorizontal:'5%'}} region={region}>
+            <Marker 
+              coordinate={coordinate}
+            />
+         </MapView>
       </View>
     );
   }
@@ -59,21 +64,13 @@ InfoScreen.navigationOptions = {
 };
 const styles= StyleSheet.create({
   container: {
-    marginVertical:'3.5%',
+    marginTop:'3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
-  search:{
-    marginTop:'6%',
-    flex:0.1,
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems:'center',
-    borderBottomWidth:0.5,
-  },
   hint:{
     flex:0.04,
-    marginLeft:'78%',
+    marginLeft:'73%',
     marginHorizontal: '5%',
   },
   lable:{

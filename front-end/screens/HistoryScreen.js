@@ -1,49 +1,98 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text,StyleSheet,FlatList,TouchableOpacity} from 'react-native';
+import {list} from '../assets/data';
 import FeedItem from '../components/FeedItem';
-import { list } from '../assets/data';
+import { AntDesign } from '@expo/vector-icons';
+
+
+
 export default class HistoryScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    getInfo = (item) => {
-        this.props.navigation.navigate('Info', { 'item': item });
-    }
-    renderItem = ({ item }) => {
-        return (
-            <TouchableOpacity style={styles.wrapperContainerItem} onPress={() => this.getInfo(item)}>
-                <FeedItem item={item} />
-            </TouchableOpacity>
-        )
+  constructor(props) {
+    super(props);
+    this.state = {
+      listArticles:list,
     };
-    render() {
-        return (
-            <View>
-                <Text style={{ padding: 20 }}> Những nơi bạn đã đến </Text>
-                <View>
-                    <FlatList
-                        data={list}
-                        renderItem={this.renderItem}
-                        keyExtractor={item => item.name}
-                    />
-                </View>
-            </View>
-        );
-    }
+  }
+  getInfo = (item) =>{
+    this.props.navigation.navigate('Info',{'item':item});
+  }
+  renderItem=({item})=>{
+    return (
+      <TouchableOpacity style={styles.wrapperContainerItem} onPress={ () => this.getInfo(item)}>
+        <FeedItem item={item} />
+      </TouchableOpacity>
+    )
+  };
+
+  render() {
+    const {listArticles} = this.state;
+    return (
+      <View style={styles.container}>
+        <View style={styles.title}>
+            <TouchableOpacity onPress={()=>this.props.navigation.pop()}>
+                <AntDesign name="arrowleft" size={27}/>
+            </TouchableOpacity>
+            <Text style={styles.textTitle}>Lịch sử tìm kiếm gần đây</Text>
+        </View>
+        <View style={styles.textLable}>
+            <Text style={styles.label}>Bạn đã tìm kiếm</Text>
+        </View>
+        <View style={styles.content}>
+            <FlatList
+              data={listArticles}
+              renderItem={this.renderItem}
+              keyExtractor={item => item.name}
+            />
+        </View>
+      </View>
+    );
+  }
 }
 
-HistoryScreen.navigationOptions = ({ navigation }) => {
-    return {
-        //   header: null,
-        title: "Lịch sử giao dịch gần đây"
-    }
+HistoryScreen.navigationOptions = {
+  header:null,
 };
 
 const styles = StyleSheet.create({
-    wrapperContainerItem: {
-        marginHorizontal: '3%',
-        borderBottomWidth: 0.5
-    },
-})
+  container: {
+    marginVertical:'1.5%',
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  title:{
+    flex:0.08,
+    marginTop:'6%',
+    marginHorizontal:'2%',
+    borderBottomWidth:0.5,
+   // backgroundColor:'red',
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  textLable:{
+    flex:0.08,
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  wrapperContainerItem:{
+    marginHorizontal:'3%',
+    borderBottomWidth:0.5
+  },
+  content:{
+    flex:0.84,
+    //backgroundColor:'green'
+  },
+  label: {
+    fontSize: 18,
+    color: 'black',
+    marginRight: 10,
+    //fontFamily:'sans-serif',
+    fontWeight:'200',
+    marginHorizontal:'3%'
+  },
+  textTitle:{
+    fontSize: 25,
+    fontWeight:'bold',
+    marginLeft:30,
+    // fontFamily:'sans-serif',
+  }
+});
