@@ -122,4 +122,5 @@ def cate(long,lat,page):
         if (i['category'].lower() in lstcat):
             i['km'] = distance(i['longitude'],i['latitude'],long,lat)
             lst.append(i)
+    lst = sorted(lst, key = lambda d: d['km'])
     return lst[(page-1)*15:page*15-1]
