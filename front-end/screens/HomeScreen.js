@@ -121,7 +121,7 @@ export default class HomeScreen extends Component {
         </View>
         <View style={styles.content}>
           <Text style={styles.label}>Thèm món này chứ?</Text>
-         <ActivityIndicator/>
+          <ActivityIndicator />
         </View>
       </View>
     );
@@ -143,11 +143,7 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-<<<<<<< HEAD
-    marginVertical: '3.5%',
-=======
-    marginTop:'3.5%',
->>>>>>> 590c32fac9898256734d893816d368fa42d747bf
+    marginTop: '3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
