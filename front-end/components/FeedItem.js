@@ -40,8 +40,8 @@ const styles= StyleSheet.create({
     borderRadius:5
   },
   info:{
-    flex: 0.7,
-    //backgroundColor:'yellow',
+    //flex: 0.7,
+    width: 255,
     justifyContent:'flex-start'
   },
   label: {
