@@ -10,8 +10,10 @@ if __name__ == "__main__":
 
     @app.route('/predict')
     def merchants():
-        storelist = sorted(ctl.cate(), key= lambda d: ctl.distance(float(d["longitude"]), float(d["latitude"]), 103.5, 1.2))
-        return jsonify(storelist[0:10])
+        long = float(request.args.get('long', None))
+        lat = float(request.args.get('lat', None))
+        storelist = sorted(ctl.cate(long,lat), key= lambda d: d['km'])
+        return jsonify(storelist[0:50])
 
     @app.route('/search')
     def search():

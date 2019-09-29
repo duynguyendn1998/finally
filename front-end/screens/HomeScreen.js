@@ -10,8 +10,8 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCheckRating: true,
-      isCheckAround: false,
+      isCheckRating: false,
+      isCheckAround: true,
       listArticles: [],
       search: '',
     };
@@ -24,17 +24,25 @@ export default class HomeScreen extends Component {
       latitude: location.coords.latitude
     }
     await this.setState({ location });
-
+    //history
     const user_id = await AsyncStorage.getItem('user_id');
     let response = await fetch(api + `/user?user_id=${user_id}&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
     let historyList = await response.json();
-
     await AsyncStorage.setItem('historyList',JSON.stringify(historyList));
-
-    response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
-    let listArticles = await response.json();
-    await this.setState({ listArticles });
-
+    await this.getList();
+  }
+  getList = async () =>{
+    if(this.state.isCheckAround){
+      response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
+      let listArticles = await response.json();
+      await this.setState({ listArticles });
+    }
+    if(this.state.isCheckRating){
+      let listArticles = []
+      response = await fetch(api + `/predict?long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
+      listArticles = await response.json();
+      await this.setState({ listArticles });
+    }
   }
   getInfo = (item) => {
     this.props.navigation.navigate('Info', { 'item': item });
@@ -46,7 +54,13 @@ export default class HomeScreen extends Component {
       </TouchableOpacity>
     )
   };
-
+  onCheck = async () =>{
+    await this.setState({
+      isCheckRating: !this.state.isCheckRating,
+      isCheckAround: !this.state.isCheckAround
+    })
+    this.getList()
+  }
   oncheckRating = props => {
     const { isCheckRating } = this.state;
     const color = isCheckRating === true ? '#ED3E7A' : null;
@@ -59,7 +73,7 @@ export default class HomeScreen extends Component {
         size={40}
         checkedColor='#ED3E7A'
         checked={isCheckRating}
-        onPress={() => this.setState({ isCheckRating: !isCheckRating })}
+        onPress={this.onCheck}
       />
     );
   }
@@ -75,7 +89,7 @@ export default class HomeScreen extends Component {
         size={40}
         checkedColor='#ED3E7A'
         checked={isCheckAround}
-        onPress={() => this.setState({ isCheckAround: !isCheckAround })}
+        onPress={this.onCheck}
       />
     );
   }

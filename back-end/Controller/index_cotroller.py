@@ -113,12 +113,11 @@ def predict():
             pred[cat] = pos
 
     return sorted(pred, key=pred.get, reverse=True)
-def cate():
+def cate(long,lat):
     lstcat = predict()
     lst = []
-    for cat in lstcat:
-        for i in coll.find():
-            if (cat == i['category'].lower()):
-                i['_id'] = str(i['_id'])
-                lst.append(i)
+    for i in coll.find({},{'_id':0}):
+        if (i['category'].lower() in lstcat):
+            i['km'] = distance(i['longitude'],i['latitude'],long,lat)
+            lst.append(i)
     return lst
