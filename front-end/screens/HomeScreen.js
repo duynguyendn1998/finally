@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, AsyncStorage } from 'react-native';
 import { CheckBox, } from 'react-native-elements';
 import FeedItem from '../components/FeedItem';
 import SearchDesign from '../components/SearchDesign';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-
+import { api } from '../config';
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -24,9 +24,16 @@ export default class HomeScreen extends Component {
       latitude: location.coords.latitude
     }
     await this.setState({ location });
-    let response = await fetch(`http://127.0.0.1:5000/classify?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
+
+    const user_id = await AsyncStorage.getItem('user_id');
+    let response = await fetch(api + '/user?user_id='+user_id);
+    let historyList = await response.json();
+    console.log(historyList);
+
+    response = await fetch(api + `/classify?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
     let listArticles = await response.json();
     await this.setState({ listArticles });
+
   }
   getInfo = (item) => {
     this.props.navigation.navigate('Info', { 'item': item });
