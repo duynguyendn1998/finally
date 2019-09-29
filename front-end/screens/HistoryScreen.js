@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     fontSize: 23,
-    fontWeight:500,
+    fontWeight:"500",
     marginLeft: 40,
   }
 });
