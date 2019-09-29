@@ -32,8 +32,9 @@ export default class HomeScreen extends Component {
     await this.getList();
   }
   getList = async (page = 1) => {
+    console.log(page)
     if (page === 1) {
-      this.setState({
+      await this.setState({
         listArticles: []
       })
     }
@@ -117,7 +118,7 @@ export default class HomeScreen extends Component {
   async getAllArticle() {
     if (this.state.isCheckAround) {
       response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
-      let listArticles = this.state.listArticles.concat(await response.json());
+      let listArticles = await response.json();
       this.setState({ listArticles });
     }
   }
