@@ -25,10 +25,19 @@ export default class InfoScreen extends Component {
   _seeAdd = () => {
     if(this.state.item.amount !== undefined){
       return (
-        <View >
-          <Text>Địa chỉ: {this.state.item.store_address}</Text>
-          <Text>Thể loại: {this.state.item.category}</Text>
-          <Text>Thanh toán: {this.state.item.amount}</Text>
+        <View style={styles.WrapperSeeMore}>
+          <View style={{flexDirection:'row'}}>
+            <Text style={styles.textSeeMore}>Địa chỉ:</Text>
+            <Text style={styles.textInfoSeeMore}>{this.state.item.store_address}</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={styles.textSeeMore}>Thể loại:</Text>
+            <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={styles.textSeeMore}>Thanh toán:</Text>
+            <Text style={styles.textInfoSeeMore}>{this.state.item.amount}</Text>
+          </View>
         </View>
       )
     }
@@ -36,9 +45,12 @@ export default class InfoScreen extends Component {
       <View style={styles.WrapperSeeMore}>
         <View style={{flexDirection:'row'}}>
           <Text style={styles.textSeeMore}>Địa chỉ:</Text>
-          <Text>{this.state.item.store_address}</Text>
+          <Text style={styles.textInfoSeeMore}>{this.state.item.store_address}</Text>
         </View>
-        <Text style={styles.textSeeMore}>Thể loại: {this.state.item.category}</Text>
+        <View style={{flexDirection:'row'}}>
+          <Text style={styles.textSeeMore}>Thể loại:</Text>
+          <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
+        </View>
       </View>
     )
   };
@@ -73,9 +85,9 @@ export default class InfoScreen extends Component {
         <View style={styles.article}>
           <FeedItem item={this.props.navigation.getParam('item')} />
         </View>
-          <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
-            <Text style={styles.lable}>{see}</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
+          <Text style={styles.lable}>{see}</Text>
+        </TouchableOpacity>
         <View>
           {content ? <this._seeAdd /> : null}
         </View>
@@ -116,9 +128,8 @@ const styles = StyleSheet.create({
     // fontFamily:'sans-serif',
   },
   hint: {
-    flex: 0.04,
-    backgroundColor:'blue',
-    marginHorizontal: '5%',
+    flex: 0.028,
+    marginHorizontal: '3%',
     flexDirection:'row-reverse',
   },
   lable: {
@@ -127,16 +138,21 @@ const styles = StyleSheet.create({
   },
   article: {
     marginHorizontal: '3%',
-    flex: 0.2,
+    flex: 0.18,
     //backgroundColor:'red'
   },
   WrapperSeeMore:{
     marginHorizontal:'3%',
     marginVertical: '1%',
+    justifyContent:'flex-start'
     //backgroundColor:'red',
   },
   textSeeMore:{
     fontSize:16,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    //justifyContent:'flex-start'
+  },
+  textInfoSeeMore:{
+    width:300,
   }
 })

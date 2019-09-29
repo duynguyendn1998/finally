@@ -25,12 +25,17 @@ export default class Splash1Screen extends Component {
       <ImageBackground style={styles.container} 
        source={require('../assets/images/Splash1.png')}
        resizeMode='stretch'>
-        <TouchableOpacity style={styles.buttonLable} onPress={this.onSkip}>
-          <Text style={styles.text} > Bỏ qua </Text>
+      <View style={styles.buttonLable}>
+          <TouchableOpacity  onPress={this.onSkip}>
+            <Text style={styles.text} > Bỏ qua </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.buttonStyle}  onPress={this.onNext}>
+          {/* <View> */}
+            <Text style={[styles.text,{marginTop:10}]}> Tiếp tục </Text>
+          {/* </View> */}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonStyle} onPress={this.onNext}>
-          <Text style={[styles.text,{marginTop:10}]}> Tiếp tục </Text>
-        </TouchableOpacity>
+       
       </ImageBackground>
     );
   }

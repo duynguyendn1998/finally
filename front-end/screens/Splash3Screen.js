@@ -17,10 +17,12 @@ export default class Splash3Screen extends Component {
       <ImageBackground style={styles.container} 
        source={require('../assets/images/Splash3.png')}
        resizeMode='stretch'>
-        <TouchableOpacity style={styles.buttonLable} onPress={this.onNext}>
-          <Text style={styles.text} > Bỏ qua </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonStyle} onPress={this.onNext}>
+        <View style={styles.buttonLable}>
+            <TouchableOpacity  onPress={this.onSkip}>
+            <Text style={styles.text} > Bỏ qua </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.buttonStyle}  onPress={this.onNext}>
           <Text style={[styles.text,{marginTop:10}]}> Tiếp tục </Text>
         </TouchableOpacity>
       </ImageBackground>
