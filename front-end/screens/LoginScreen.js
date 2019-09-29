@@ -1,113 +1,113 @@
 import React from 'react';
-import {  TextInput,TouchableOpacity, StyleSheet, Text, View,AsyncStorage } from 'react-native';
+import { TextInput, TouchableOpacity, StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
-const userInfo={userId:'123',password:'123'}
 
-export default class LoginScreen extends React.Component{
-    constructor(props){
+export default class LoginScreen extends React.Component {
+    constructor(props) {
         super(props);
-        this.state={
-            userid:'',
-            password:''
+        this.state = {
+            userid: '',
+            password: ''
         }
     }
-    onLogin = async () =>{
-        if(userInfo.userId===this.state.userid && userInfo.password===this.state.password)
-        {
-            await AsyncStorage.setItem('isLoggedIn','1')
+    onLogin = async () => {
+        if (this.state.userid && this.state.password) {
+            await AsyncStorage.setItem('isLoggedIn', '1')
+            await AsyncStorage.setItem('user_id', this.state.userid)
             this.props.navigation.navigate('Home');
         }
-        else{
+        else {
             alert('Vui lòng kiểm tra lại số điện thoại và mật khẩu.');
-            this.setState({password:''})
+            this.setState({ password: '' })
         }
     }
-    changeText = (text) =>{
+    changeText = (text) => {
         this.setState({
-            userid:text
+            userid: text
         })
     }
-    changePass = (text) =>{
+    changePass = (text) => {
         this.setState({
-            password:text
+            password: text
         })
     }
 
-    render(){
-        const {password,userid}=this.state;
-        return(
+    render() {
+        const { password, userid } = this.state;
+        return (
             <View style={styles.container}>
                 <Text style={styles.title}>Đăng nhập</Text>
                 <View style={styles.inputArea}>
                     <Text style={styles.lable}>SỐ ĐIỆN THOẠI</Text>
                     <TextInput style={styles.inputText}
-                    placeholder='Vui lòng nhập số điện thoại của bạn'
-                    onChangeText={this.changeText}
-                    value={userid} />
+                        placeholder='Vui lòng nhập số điện thoại của bạn'
+                        onChangeText={this.changeText}
+                        value={userid} />
                 </View>
                 <View style={styles.inputArea}>
-                    <Text  style={styles.lable}>MẬT KHẨU</Text>
+                    <Text style={styles.lable}>MẬT KHẨU</Text>
                     <TextInput style={styles.inputText}
-                    secureTextEntry={true}
-                    placeholder='6 ký tự trở lên'
-                    onChangeText={this.changePass}
-                    value={password} />
+                        secureTextEntry={true}
+                        placeholder='6 ký tự trở lên'
+                        onChangeText={this.changePass}
+                        value={password} />
                 </View>
-                <TouchableOpacity style={styles.buttonLogin} onPress={this.onLogin}>
-                    <Text style={[styles.lable,{marginTop:'3.5%'}]}>ĐĂNG NHẬP</Text>
+                <TouchableOpacity onPress={this.onLogin}>
+                    <View style={styles.buttonLogin}>
+                        <Text style={[styles.lable, { marginTop: '5%' }]}>ĐĂNG NHẬP</Text>
+                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Text style={[styles.lable,{marginTop:'3.5%'}]}>Quên mật khẩu?</Text>
+                    <Text style={[styles.lable, { marginTop: '3.5%' }]}>Quên mật khẩu?</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 }
 LoginScreen.navigationOptions = {
-    header:null,
-  };
+    header: null,
+};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ED3E7A',
         alignItems: 'center',
     },
-    title:{
-        marginTop:'8%',
-        fontSize:25,
-        fontStyle:'normal',
-        color:'#ffffff',
-        fontWeight:'bold',
-       // backgroundColor:'blue',
+    title: {
+        marginTop: '8%',
+        fontSize: 25,
+        fontStyle: 'normal',
+        color: '#ffffff',
+        fontWeight: 'bold',
+        // backgroundColor:'blue',
     },
-    inputArea:{
+    inputArea: {
         width: '86%',
         height: 80,
-       // backgroundColor:'blue',
-        marginTop:'6%',
-        marginHorizontal:'7%'
+        // backgroundColor:'blue',
+        marginTop: '6%',
+        marginHorizontal: '7%'
     },
-    lable:{
-        fontSize:17,
-        color:'#ffffff',
+    lable: {
+        fontSize: 17,
+        color: '#ffffff',
     },
-    inputText:{
-        fontSize:18,
-        backgroundColor:'#ffffff',
-        borderRadius:6,
-        height:50,
-        marginTop:5
-    },
-    buttonLogin:{
-        width: '86%',
+    inputText: {
+        fontSize: 18,
+        backgroundColor: '#ffffff',
+        borderRadius: 6,
         height: 50,
-        backgroundColor:'#5F2237',
-        marginHorizontal:'7%',
-        marginTop:'10%',
-        alignItems:'center',
-        borderRadius:6
-       
+        marginTop: 5
+    },
+    buttonLogin: {
+        width: 200,
+        height: 50,
+        backgroundColor: '#5F2237',
+        marginHorizontal: '7%',
+        alignItems: 'center',
+        borderRadius: 6,
+        marginTop:'10%'
     }
 
-    
+
 });
