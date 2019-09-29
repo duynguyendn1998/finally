@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import FeedItem from '../components/FeedItem';
+import { AntDesign } from '@expo/vector-icons';
 export default class InfoScreen extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ export default class InfoScreen extends Component {
   _seeAdd = () => {
     if(this.state.item.amount !== undefined){
       return (
-        <View>
+        <View >
           <Text>Địa chỉ: {this.state.item.store_address}</Text>
           <Text>Thể loại: {this.state.item.category}</Text>
           <Text>Thanh toán: {this.state.item.amount}</Text>
@@ -32,9 +33,12 @@ export default class InfoScreen extends Component {
       )
     }
     return (
-      <View>
-        <Text>Địa chỉ: {this.state.item.store_address}</Text>
-        <Text>Thể loại: {this.state.item.category}</Text>
+      <View style={styles.WrapperSeeMore}>
+        <View style={{flexDirection:'row'}}>
+          <Text style={styles.textSeeMore}>Địa chỉ:</Text>
+          <Text>{this.state.item.store_address}</Text>
+        </View>
+        <Text style={styles.textSeeMore}>Thể loại: {this.state.item.category}</Text>
       </View>
     )
   };
@@ -60,18 +64,22 @@ export default class InfoScreen extends Component {
     }
     return (
       <View style={styles.container}>
+        <View style={styles.title}>
+          <TouchableOpacity onPress={() => this.props.navigation.pop()}>
+            <AntDesign name="arrowleft" size={27} />
+          </TouchableOpacity>
+          <Text style={styles.textTitle}>Thông tin sản phẩm</Text>
+        </View>
         <View style={styles.article}>
           <FeedItem item={this.props.navigation.getParam('item')} />
         </View>
-        <View style={{marginLeft:"73%"}}>
           <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
             <Text style={styles.lable}>{see}</Text>
           </TouchableOpacity>
-        </View>
         <View>
           {content ? <this._seeAdd /> : null}
         </View>
-        <MapView style={{ flex: 0.7, marginHorizontal: '5%' }} region={region}>
+        <MapView style={{ flex: 0.7, marginHorizontal: '3%' }} region={region}>
           <Marker
             coordinate={coordinate}
             title={this.state.item.store_name}
@@ -84,13 +92,28 @@ export default class InfoScreen extends Component {
 }
 InfoScreen.navigationOptions = {
   //title: 'Info',
-  //header: null,
+  header: null,
 };
 const styles = StyleSheet.create({
   container: {
     marginTop: '3.5%',
     flex: 1,
     backgroundColor: '#fff',
+  },
+  title: {
+    flex: 0.08,
+    marginTop: '6%',
+    marginHorizontal: '2%',
+    borderBottomWidth: 0.5,
+    // backgroundColor:'red',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  textTitle: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    marginLeft: 30,
+    // fontFamily:'sans-serif',
   },
   hint: {
     flex: 0.04,
@@ -107,4 +130,13 @@ const styles = StyleSheet.create({
     flex: 0.2,
     //backgroundColor:'red'
   },
+  WrapperSeeMore:{
+    marginHorizontal:'3%',
+    marginVertical: '1%',
+    //backgroundColor:'red',
+  },
+  textSeeMore:{
+    fontSize:16,
+    fontWeight:'bold'
+  }
 })
