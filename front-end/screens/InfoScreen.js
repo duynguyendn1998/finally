@@ -47,6 +47,7 @@ export default class InfoScreen extends Component {
   }
 
   render() {
+    const {see,content}=this.state;
     region = {
       latitude: this.state.location.lat,
       longitude: this.state.location.lng,
@@ -62,11 +63,13 @@ export default class InfoScreen extends Component {
         <View style={styles.article}>
           <FeedItem item={this.props.navigation.getParam('item')} />
         </View>
-        <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
-          <Text style={styles.lable}>{this.state.see}</Text>
-        </TouchableOpacity>
+        <View style={{marginLeft:"73%"}}>
+          <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
+            <Text style={styles.lable}>{see}</Text>
+          </TouchableOpacity>
+        </View>
         <View>
-          {this.state.content ? <this._seeAdd /> : null}
+          {content ? <this._seeAdd /> : null}
         </View>
         <MapView style={{ flex: 0.7, marginHorizontal: '5%' }} region={region}>
           <Marker
@@ -80,7 +83,7 @@ export default class InfoScreen extends Component {
   }
 }
 InfoScreen.navigationOptions = {
-  title: 'Info',
+  //title: 'Info',
   //header: null,
 };
 const styles = StyleSheet.create({
@@ -91,8 +94,9 @@ const styles = StyleSheet.create({
   },
   hint: {
     flex: 0.04,
-    marginLeft: '73%',
+    backgroundColor:'blue',
     marginHorizontal: '5%',
+    flexDirection:'row-reverse',
   },
   lable: {
     color: '#ED3E7A',
@@ -101,6 +105,6 @@ const styles = StyleSheet.create({
   article: {
     marginHorizontal: '3%',
     flex: 0.2,
-    //  backgroundColor:'red'
+    //backgroundColor:'red'
   },
 })
