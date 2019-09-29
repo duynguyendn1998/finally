@@ -38,7 +38,7 @@ export default class HomeScreen extends Component {
       })
     }
     await this.setState({ page })
-    if (this.state.isCheckAround && page===1) {
+    if (this.state.isCheckAround && page === 1) {
       response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
       let listArticles = this.state.listArticles.concat(await response.json());
       await this.setState({ listArticles });
@@ -48,7 +48,7 @@ export default class HomeScreen extends Component {
       response = await fetch(api + `/predict?long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
       let listArticles = this.state.listArticles.concat(await response.json());
       await this.setState({ listArticles });
-      
+
     }
   }
   getInfo = (item) => {
@@ -137,7 +137,7 @@ export default class HomeScreen extends Component {
             <this.oncheckAround />
           </View>
           <View style={styles.content}>
-            <Text style={styles.label}>Thèm món này chứ?</Text>
+            <Text style={styles.label}>Có thể bạn sẽ thích</Text>
             <FlatList
               onEndReached={() => this.getList(this.state.page + 1)}
               onEndReachedThreshold={0.1}
@@ -158,8 +158,8 @@ export default class HomeScreen extends Component {
           <this.oncheckAround />
         </View>
         <View style={styles.content}>
-          <Text style={styles.label}>Thèm món này chứ?</Text>
-          <ActivityIndicator />
+          <Text style={styles.label}>Có thể bạn sẽ thích</Text>
+          <Text style={{textAlign:"center",marginTop:"10%",fontSize:18}}>Không có kết quả</Text>
         </View>
       </View>
     );
