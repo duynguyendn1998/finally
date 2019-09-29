@@ -8,7 +8,8 @@ export default class InfoScreen extends Component {
     this.state = {
       location: {},
       content: false,
-      item:this.props.navigation.getParam('item'),
+      see: 'Xem thêm',
+      item: this.props.navigation.getParam('item'),
     };
   }
   async componentWillMount() {
@@ -21,6 +22,15 @@ export default class InfoScreen extends Component {
     });
   }
   _seeAdd = () => {
+    if(this.state.item.amount !== undefined){
+      return (
+        <View>
+          <Text>Địa chỉ: {this.state.item.store_address}</Text>
+          <Text>Thể loại: {this.state.item.category}</Text>
+          <Text>Thanh toán: {this.state.item.amount}</Text>
+        </View>
+      )
+    }
     return (
       <View>
         <Text>Địa chỉ: {this.state.item.store_address}</Text>
@@ -28,8 +38,12 @@ export default class InfoScreen extends Component {
       </View>
     )
   };
-  componentHideAndShow = () => {
-    this.setState(previousState => ({ content: !previousState.content }))
+  componentHideAndShow = async () => {
+    await this.setState({ content: !this.state.content })
+    if (this.state.content === true)
+      this.setState({ see: 'Ẩn bớt' })
+    else
+      this.setState({ see: 'Xem thêm' })
   }
 
   render() {
@@ -49,7 +63,7 @@ export default class InfoScreen extends Component {
           <FeedItem item={this.props.navigation.getParam('item')} />
         </View>
         <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
-          <Text style={styles.lable}>Xem thêm</Text>
+          <Text style={styles.lable}>{this.state.see}</Text>
         </TouchableOpacity>
         <View>
           {this.state.content ? <this._seeAdd /> : null}
@@ -71,13 +85,13 @@ InfoScreen.navigationOptions = {
 };
 const styles = StyleSheet.create({
   container: {
-    marginTop:'3.5%',
+    marginTop: '3.5%',
     flex: 1,
     backgroundColor: '#fff',
   },
-  hint:{
-    flex:0.04,
-    marginLeft:'73%',
+  hint: {
+    flex: 0.04,
+    marginLeft: '73%',
     marginHorizontal: '5%',
   },
   lable: {
