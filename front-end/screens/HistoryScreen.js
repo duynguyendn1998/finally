@@ -34,10 +34,12 @@ export default class HistoryScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.title}>
-          <TouchableOpacity onPress={() => this.props.navigation.pop()}>
-            <AntDesign name="arrowleft" size={27} />
-          </TouchableOpacity>
-          <Text style={styles.textTitle}>Lịch sử tìm kiếm gần đây</Text>
+          <View style={{flexDirection:'row'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.pop()}>
+              <AntDesign name="arrowleft" size={27} />
+            </TouchableOpacity>
+            <Text style={styles.textTitle}>Lịch sử tìm kiếm gần đây</Text>
+          </View>
         </View>
         <View style={styles.textLable}>
           <Text style={styles.label}>Bạn đã đến</Text>
@@ -60,18 +62,15 @@ HistoryScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: '1.5%',
     flex: 1,
+    marginVertical: '1.5%',   
+    marginTop: '7%',
     backgroundColor: '#fff',
   },
   title: {
     flex: 0.08,
-    marginTop: '6%',
-    marginHorizontal: '2%',
-    borderBottomWidth: 0.5,
-    // backgroundColor:'red',
-    flexDirection: 'row',
-    alignItems: 'center'
+     marginHorizontal: '2%',
+     justifyContent:'center'
   },
   textLable: {
     flex: 0.08,
@@ -84,20 +83,17 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 0.84,
-    //backgroundColor:'green'
   },
   label: {
     fontSize: 18,
     color: 'black',
     marginRight: 10,
-    //fontFamily:'sans-serif',
     fontWeight: '200',
     marginHorizontal: '3%'
   },
   textTitle: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginLeft: 30,
-    // fontFamily:'sans-serif',
+    fontSize: 23,
+    fontWeight:500,
+    marginLeft: 40,
   }
 });

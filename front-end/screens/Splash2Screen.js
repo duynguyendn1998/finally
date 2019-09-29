@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text,StyleSheet,TouchableOpacity,ImageBackground} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 export default class Splash2Screen extends Component {
   constructor(props) {
@@ -21,9 +22,16 @@ export default class Splash2Screen extends Component {
        source={require('../assets/images/Splash2.png')}
        resizeMode='stretch'>
         <View style={styles.buttonLable}>
+          <View>
+            <TouchableOpacity onPress={() => this.props.navigation.pop()}>
+              <AntDesign name="arrowleft" size={27} color='#fff' />
+            </TouchableOpacity>
+          </View>
+          <View>
             <TouchableOpacity  onPress={this.onSkip}>
-            <Text style={styles.text} > Bỏ qua </Text>
-          </TouchableOpacity>
+              <Text style={styles.text} > Bỏ qua </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <TouchableOpacity style={styles.buttonStyle}  onPress={this.onNext}>
           <Text style={[styles.text,{marginTop:10}]}> Tiếp tục </Text>
@@ -43,8 +51,10 @@ const styles=StyleSheet.create({
   },
   buttonLable:{
     flex:0.92,
+    flexDirection:'row',
+    marginHorizontal:'2%',
     marginTop:'10%',
-    marginLeft:'80%',
+    justifyContent:'space-between'
   },
   buttonStyle:{
     flex:0.08,

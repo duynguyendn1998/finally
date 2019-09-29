@@ -15,7 +15,7 @@ const config = Platform.select({
 const UserStack = createStackNavigator(
   {
     User: UserScreen,
-    History: HistoryScreen
+    History: HistoryScreen,
   }
 );
 UserStack.navigationOptions = {
@@ -27,8 +27,6 @@ const HomeStack = createStackNavigator(
     Home: HomeScreen,
     Info: InfoScreen,
     User:UserStack,
-    // User:UserScreen,
-    // History: HistoryStack,
   },
   config
 );

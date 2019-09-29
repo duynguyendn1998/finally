@@ -40,21 +40,21 @@ export default class LoginScreen extends React.Component {
                 <View style={styles.inputArea}>
                     <Text style={styles.lable}>SỐ ĐIỆN THOẠI</Text>
                     <TextInput style={styles.inputText}
-                        placeholder='Vui lòng nhập số điện thoại của bạn'
+                        placeholder=' Nhập số điện thoại của bạn'
                         onChangeText={this.changeText}
                         value={userid} />
                 </View>
-                <View style={styles.inputArea}>
+                <View style={[styles.inputArea,{marginBottom:'8%'}]}>
                     <Text style={styles.lable}>MẬT KHẨU</Text>
                     <TextInput style={styles.inputText}
                         secureTextEntry={true}
-                        placeholder='6 ký tự trở lên'
+                        placeholder=' 6 ký tự trở lên'
                         onChangeText={this.changePass}
                         value={password} />
                 </View>
                 <TouchableOpacity onPress={this.onLogin}>
                     <View style={styles.buttonLogin}>
-                        <Text style={[styles.lable, { marginTop: '5%' }]}>ĐĂNG NHẬP</Text>
+                        <Text style={styles.lable}>ĐĂNG NHẬP</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
@@ -74,18 +74,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        marginTop: '8%',
+        marginTop: '13%',
         fontSize: 25,
-        fontStyle: 'normal',
         color: '#ffffff',
         fontWeight: 'bold',
-        // backgroundColor:'blue',
     },
     inputArea: {
         width: '86%',
         height: 80,
-        // backgroundColor:'blue',
-        marginTop: '6%',
+        marginTop: '5%',
         marginHorizontal: '7%'
     },
     lable: {
@@ -106,7 +103,7 @@ const styles = StyleSheet.create({
         marginHorizontal: '7%',
         alignItems: 'center',
         borderRadius: 6,
-        marginTop:'10%'
+        justifyContent:'center'
     }
 
 
