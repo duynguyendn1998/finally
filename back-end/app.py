@@ -16,10 +16,19 @@ if __name__ == "__main__":
     @app.route('/search')
     def search():
         text = request.args.get('text', None)
-        assert text is not None
-        storelist = sorted(ctl.search(text), key= lambda d: ctl.distance(float(d["longitude"]), float(d["latitude"]), 103.5, 1.2))
-        return jsonify(storelist[0:5])
+        long = float(request.args.get('long', None))
+        lat = float(request.args.get('lat', None))
+
+        storelist = ctl.search(text, long, lat)
+        
+        return jsonify(storelist)
     
+    @app.route('/user')
+    def user():
+        user_id = request.args.get('user_id', None)
+        return jsonify(ctl.user(user_id))
+
     # Add route in here
     
     app.run()
+    # app.run(host='0.0.0.0', port=80)

@@ -11,6 +11,8 @@ import pickle
 import datetime
 import numpy as np
 import operator
+from bson.int64 import Int64
+import geopy.distance
 
 def index():
     # Coder here
@@ -33,12 +35,12 @@ def normal(text):
     text = un.normalize('NFKD',text).encode('ascii', errors='ignore').decode('utf-8')
     return text
 
-def search(text):
+def search(text, long, lat):
     lst_dict= []
     add = normal(text)
     lst_text = split_tag(add)
     for i in coll.find():
-        tag = i['store_name']+" "+i['store_address']
+        tag = str(i['store_name'])+" "+str(i['store_address'])
         tag = normal(tag)
         lst_tag = split_tag(tag)
         p = len(set(lst_text)&set(lst_tag))
@@ -47,7 +49,7 @@ def search(text):
             lst_dict.append(i)
     if not lst_dict:
         for i in coll.find():
-            tag = i['store_name']+" "+i['store_address']
+            tag = str(i['store_name'])+" "+str(i['store_address'])
             tag = normal(tag)
             lst_tag = split_tag(tag)
             p = len(set(lst_text)&set(lst_tag))
@@ -56,13 +58,30 @@ def search(text):
             if(p_cat > 0 or p >=2):
                 i['_id'] = str(i['_id'])
                 lst_dict.append(i)
-    return lst_dict
+    
+        for i in lst_dict:
+            i['km'] = distance(float(i['longitude']), float(i['latitude']), long, lat)
+        lst_dict = filter(lambda x: x['km'] <= 5, lst_dict)
+        lst_dict = sorted(lst_dict, key = lambda d: d['km'])
+        return lst_dict
 
 def distance(lon1, lat1, lon2, lat2): 
-    R = 5000 #radius in m 
-    x = (lon2-lon1) * cos(0.5*(lat2+lat1)) 
-    y = (lat2-lat1) 
-    return R * sqrt( x*x + y*y )
+    # R = 6371 #radius in m 
+    coords_1 = (lat1, lon1)
+    coords_2 = (lat2, lon2) 
+    return geopy.distance.vincenty(coords_1, coords_2).km
+
+def user(user_id):
+    transList = list(db['tran'].find({'user_id':Int64(user_id)},{'_id':0}))
+    merList = []
+    for i in transList:
+        mer = coll.find_one({'store_id':Int64(i['store_id'])},{'_id':0,'':0})
+        if mer is not None:
+            mer['amount'] = i['amount']
+            merList.append(mer)
+    
+    return merList
+
 
 def ReadModel(cat):
     mymodel = None
