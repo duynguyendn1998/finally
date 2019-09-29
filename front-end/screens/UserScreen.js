@@ -27,18 +27,18 @@ export default class UserScreen extends Component {
             </View>
         </View>
         <View style={styles.content}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
             <View style={styles.wrapper}>
-                <Text style={styles.textLable}>Lịch sử giao dịch</Text>
-                <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
-                     <AntDesign name="right" size={25}/>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.wrapper}>
-                <Text style={styles.textLable}>Hỗ trợ</Text>
-                <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
-                     <AntDesign name="right" size={25}/>
-                </TouchableOpacity>
-            </View>
+              <Text style={styles.textLable}>Lịch sử giao dịch</Text>
+              <AntDesign name="right" size={25}/>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
+                <View style={styles.wrapper}>
+                  <Text style={styles.textLable}>Hỗ trợ</Text>
+                  <AntDesign name="right" size={25}/>
+                </View>
+            </TouchableOpacity>
           <TouchableOpacity  onPress={this.logout}>
           <Text style={[styles.textLable,{marginTop:'3%'}]}>Đăng xuất</Text>
         </TouchableOpacity>

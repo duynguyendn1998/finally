@@ -15,7 +15,6 @@ class AuthLoadingScreen extends React.Component {
     const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
     this.props.navigation.navigate(isLoggedIn !=='1' ? 'Auth':'Main')
   }
-
   componentDidMount(){
     setTimeout(()=>{
       this.loadingData()
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center'
   },
-  item: {},
   btn: {
     backgroundColor: "#480032",
     width: 100,
@@ -51,12 +49,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center"
-  },
-  item1: {
-    backgroundColor: "red",
-    padding: 20,
-    width: 100,
-    margin: 10
   },
 
   textBtn: {
