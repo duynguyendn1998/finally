@@ -20,15 +20,16 @@ if __name__ == "__main__":
         lat = float(request.args.get('lat', None))
 
         storelist = ctl.search(text, long, lat)
-        
         return jsonify(storelist)
     
     @app.route('/user')
     def user():
         user_id = request.args.get('user_id', None)
-        return jsonify(ctl.user(user_id))
+        long = float(request.args.get('long', None))
+        lat = float(request.args.get('lat', None))
+        return jsonify(ctl.user(user_id,long,lat))
 
     # Add route in here
     
-    app.run()
-    # app.run(host='0.0.0.0', port=80)
+    # app.run()
+    app.run(host='0.0.0.0', port=80)

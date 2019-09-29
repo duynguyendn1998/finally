@@ -26,12 +26,12 @@ export default class HomeScreen extends Component {
     await this.setState({ location });
 
     const user_id = await AsyncStorage.getItem('user_id');
-    let response = await fetch(api + '/user?user_id='+user_id);
+    let response = await fetch(api + `/user?user_id=${user_id}&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
     let historyList = await response.json();
 
     await AsyncStorage.setItem('historyList',JSON.stringify(historyList));
 
-    response = await fetch(api + `/classify?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
+    response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
     let listArticles = await response.json();
     await this.setState({ listArticles });
 

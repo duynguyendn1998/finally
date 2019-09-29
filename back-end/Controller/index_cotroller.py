@@ -58,12 +58,11 @@ def search(text, long, lat):
             if(p_cat > 0 or p >=2):
                 i['_id'] = str(i['_id'])
                 lst_dict.append(i)
-    
-        for i in lst_dict:
-            i['km'] = distance(float(i['longitude']), float(i['latitude']), long, lat)
-        lst_dict = filter(lambda x: x['km'] <= 5, lst_dict)
-        lst_dict = sorted(lst_dict, key = lambda d: d['km'])
-        return lst_dict
+    for i in lst_dict:
+        i['km'] = distance(i['longitude'], i['latitude'], long, lat)
+    lst_dict = filter(lambda x: x['km'] <= 5, lst_dict)
+    lst_dict = sorted(lst_dict, key = lambda d: d['km'])
+    return lst_dict
 
 def distance(lon1, lat1, lon2, lat2): 
     # R = 6371 #radius in m 
@@ -71,13 +70,14 @@ def distance(lon1, lat1, lon2, lat2):
     coords_2 = (lat2, lon2) 
     return geopy.distance.vincenty(coords_1, coords_2).km
 
-def user(user_id):
+def user(user_id,long,lat):
     transList = list(db['tran'].find({'user_id':Int64(user_id)},{'_id':0}))
     merList = []
     for i in transList:
         mer = coll.find_one({'store_id':Int64(i['store_id'])},{'_id':0,'':0})
         if mer is not None:
             mer['amount'] = i['amount']
+            mer['km'] = distance(float(mer['longitude']),float(mer['latitude']),long,lat)
             merList.append(mer)
     
     return merList
