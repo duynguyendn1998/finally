@@ -10,8 +10,8 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCheckRating: false,
-      isCheckAround: true,
+      isCheckRating: true,
+      isCheckAround: false,
       listArticles: [],
       search: '',
     };
@@ -28,20 +28,27 @@ export default class HomeScreen extends Component {
     const user_id = await AsyncStorage.getItem('user_id');
     let response = await fetch(api + `/user?user_id=${user_id}&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
     let historyList = await response.json();
-    await AsyncStorage.setItem('historyList',JSON.stringify(historyList));
+    await AsyncStorage.setItem('historyList', JSON.stringify(historyList));
     await this.getList();
   }
-  getList = async () =>{
-    if(this.state.isCheckAround){
-      response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
-      let listArticles = await response.json();
-      await this.setState({ listArticles });
+  getList = async (page = 1) => {
+    if (page === 1) {
+      this.setState({
+        listArticles: []
+      })
     }
-    if(this.state.isCheckRating){
-      let listArticles = []
-      response = await fetch(api + `/predict?long=${this.state.location.longitude}&lat=${this.state.location.latitude}`)
-      listArticles = await response.json();
+    await this.setState({ page })
+    if (this.state.isCheckAround && page===1) {
+      response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
+      let listArticles = this.state.listArticles.concat(await response.json());
       await this.setState({ listArticles });
+      this.getAllArticle();
+    }
+    if (this.state.isCheckRating) {
+      response = await fetch(api + `/predict?long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
+      let listArticles = this.state.listArticles.concat(await response.json());
+      await this.setState({ listArticles });
+      
     }
   }
   getInfo = (item) => {
@@ -54,12 +61,12 @@ export default class HomeScreen extends Component {
       </TouchableOpacity>
     )
   };
-  onCheck = async () =>{
+  onCheck = async () => {
     await this.setState({
       isCheckRating: !this.state.isCheckRating,
       isCheckAround: !this.state.isCheckAround
     })
-    this.getList()
+    await this.getList()
   }
   oncheckRating = props => {
     const { isCheckRating } = this.state;
@@ -107,6 +114,13 @@ export default class HomeScreen extends Component {
     }
     return false;
   }
+  async getAllArticle() {
+    if (this.state.isCheckAround) {
+      response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
+      let listArticles = this.state.listArticles.concat(await response.json());
+      this.setState({ listArticles });
+    }
+  }
   render() {
     let { listArticles } = this.state;
     if (listArticles.length > 0) {
@@ -125,6 +139,8 @@ export default class HomeScreen extends Component {
           <View style={styles.content}>
             <Text style={styles.label}>Thèm món này chứ?</Text>
             <FlatList
+              onEndReached={() => this.getList(this.state.page + 1)}
+              onEndReachedThreshold={0.1}
               data={listArticles}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index.toString()}

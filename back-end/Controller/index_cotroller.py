@@ -35,7 +35,7 @@ def normal(text):
     text = un.normalize('NFKD',text).encode('ascii', errors='ignore').decode('utf-8')
     return text
 
-def search(text, long, lat):
+def search(text, long, lat,page):
     lst_dict= []
     add = normal(text)
     lst_text = split_tag(add)
@@ -60,9 +60,11 @@ def search(text, long, lat):
                 lst_dict.append(i)
     for i in lst_dict:
         i['km'] = distance(i['longitude'], i['latitude'], long, lat)
-    lst_dict = filter(lambda x: x['km'] <= 5, lst_dict)
     lst_dict = sorted(lst_dict, key = lambda d: d['km'])
-    return lst_dict
+    if page is None:
+        return lst_dict
+    else:
+        return lst_dict[0:50]
 
 def distance(lon1, lat1, lon2, lat2): 
     # R = 6371 #radius in m 
@@ -113,11 +115,11 @@ def predict():
             pred[cat] = pos
 
     return sorted(pred, key=pred.get, reverse=True)
-def cate(long,lat):
+def cate(long,lat,page):
     lstcat = predict()
     lst = []
     for i in coll.find({},{'_id':0}):
         if (i['category'].lower() in lstcat):
             i['km'] = distance(i['longitude'],i['latitude'],long,lat)
             lst.append(i)
-    return lst
+    return lst[(page-1)*15:page*15-1]
