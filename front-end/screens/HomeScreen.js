@@ -6,6 +6,7 @@ import SearchDesign from '../components/SearchDesign';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { api } from '../config';
+import { TabView, SceneMap } from 'react-native-tab-view';
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,11 @@ export default class HomeScreen extends Component {
       isCheckAround: false,
       listArticles: [],
       search: '',
+      index: 0,
+      routes: [
+      { key: 'first', title: 'Fisrt' },
+      { key: 'second', title: 'Second' },
+    ],
     };
   }
   async componentWillMount() {
@@ -122,35 +128,30 @@ export default class HomeScreen extends Component {
       this.setState({ listArticles });
     }
   }
-  render() {
-    let { listArticles } = this.state;
-    if (listArticles.length > 0) {
-      listArticles = listArticles.filter(e => this.filterList(e))
-    }
-    if (listArticles.length)
-      return (
-        <View style={styles.container}>
-          <View style={styles.search}>
-            <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
-          </View>
-          <View style={styles.checkbox}>
-            <this.oncheckRating />
-            <this.oncheckAround />
-          </View>
-          <View style={styles.content}>
-            <Text style={styles.label}>Có thể bạn sẽ thích</Text>
-            <FlatList
-              onEndReached={() => this.getList(this.state.page + 1)}
-              onEndReachedThreshold={0.1}
-              data={listArticles}
-              renderItem={this.renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        </View>
-      );
-    return (
-      <View style={styles.container}>
+  FirstRoute = () => (
+    <View style={styles.container}>
+    <View style={styles.search}>
+      <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
+    </View>
+    <View style={styles.checkbox}>
+      <this.oncheckRating />
+      <this.oncheckAround />
+    </View>
+    <View style={styles.content}>
+      <Text style={styles.label}>Có thể bạn sẽ thích</Text>
+      <FlatList
+        onEndReached={() => this.getList(this.state.page + 1)}
+        onEndReachedThreshold={0.1}
+        data={this.state.listArticles}
+        renderItem={this.renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
+  </View>
+  );
+  
+  SecondRoute = () => (
+    <View style={styles.container}>
         <View style={styles.search}>
           <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
         </View>
@@ -164,7 +165,61 @@ export default class HomeScreen extends Component {
         </View>
       </View>
     );
-  }
+  render() {
+    let { listArticles } = this.state;
+    if (listArticles.length > 0) {
+      listArticles = listArticles.filter(e => this.filterList(e))
+    }
+
+    //if (listArticles.length)
+  //     return (
+  //       <View style={styles.container}>
+  //         <View style={styles.search}>
+  //           <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
+  //         </View>
+  //         <View style={styles.checkbox}>
+  //           <this.oncheckRating />
+  //           <this.oncheckAround />
+  //         </View>
+  //         <View style={styles.content}>
+  //           <Text style={styles.label}>Có thể bạn sẽ thích</Text>
+  //           <FlatList
+  //             onEndReached={() => this.getList(this.state.page + 1)}
+  //             onEndReachedThreshold={0.1}
+  //             data={listArticles}
+  //             renderItem={this.renderItem}
+  //             keyExtractor={(item, index) => index.toString()}
+  //           />
+  //         </View>
+  //       </View>
+  //     );
+  //   return (
+  //     <View style={styles.container}>
+  //       <View style={styles.search}>
+  //         <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
+  //       </View>
+  //       <View style={styles.checkbox}>
+  //         <this.oncheckRating />
+  //         <this.oncheckAround />
+  //       </View>
+  //       <View style={styles.content}>
+  //         <Text style={styles.label}>Có thể bạn sẽ thích</Text>
+  //         <Text style={{textAlign:"center",marginTop:"10%",fontSize:18}}>Không có kết quả</Text>
+  //       </View>
+  //     </View>
+  //   );
+  return (
+    <TabView
+      navigationState={this.state}
+      renderScene={SceneMap({
+        first: this.FirstRoute,
+        second: this.SecondRoute,
+      })}
+      onIndexChange={index => this.setState({ index })}
+      // initialLayout={{ width: Dimensions.get('window').width }}
+    />
+  );
+ }
 }
 const xoa_dau = str => {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -181,6 +236,9 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  scene: {
+    flex: 1,
+  },
   container: {
     marginTop: '3.5%',
     flex: 1,
