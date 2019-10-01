@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import FeedItem from '../components/FeedItem';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign,Entypo,Foundation } from '@expo/vector-icons';
+
 export default class InfoScreen extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,8 @@ export default class InfoScreen extends Component {
       content: false,
       see: 'Xem thêm',
       item: this.props.navigation.getParam('item'),
+      contentSeeMap: 0.7,
+      contentSeeMore:0,
     };
   }
   async componentWillMount() {
@@ -22,48 +25,49 @@ export default class InfoScreen extends Component {
       location
     });
   }
+  componentHideAndShow = async () => {
+    await this.setState({ content: !this.state.content })
+    if (this.state.content === true)
+      this.setState({ see: 'Ẩn bớt',contentSeeMap:0.7,contentSeeMore:0 })
+    else
+      this.setState({ see: 'Xem thêm',contentSeeMap:0.5,contentSeeMore:0.2})
+  }
   _seeAdd = () => {
+    const {contentSeeMore}=this.state;
     if(this.state.item.amount !== undefined){
       return (
-        <View style={styles.WrapperSeeMore}>
-          <View style={{flexDirection:'row'}}>
-            <Text style={styles.textSeeMore}>Địa chỉ:</Text>
+        <View style={[styles.WrapperSeeMore,{flex:contentSeeMore}]}>
+          <View style={styles.wrapper}>
+            <Entypo name='location-pin' size={25} color='#ED3E7A'/>
             <Text style={styles.textInfoSeeMore}>{this.state.item.store_address}</Text>
           </View>
-          <View style={{flexDirection:'row'}}>
+          <View style={styles.wrapper}>
+            <Foundation name='dollar' size={25} color='#ED3E7A'/>
+            <Text style={styles.textInfoSeeMore}>{this.state.item.amount}</Text>
+          </View>
+          <View style={styles.wrapper}>
             <Text style={styles.textSeeMore}>Thể loại:</Text>
             <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text style={styles.textSeeMore}>Thanh toán:</Text>
-            <Text style={styles.textInfoSeeMore}>{this.state.item.amount}</Text>
           </View>
         </View>
       )
     }
     return (
-      <View style={styles.WrapperSeeMore}>
-        <View style={{flexDirection:'row'}}>
-          <Text style={styles.textSeeMore}>Địa chỉ:</Text>
+      <View style={[styles.WrapperSeeMore,{flex:contentSeeMore}]}>
+        <View style={styles.wrapper}>
+          <Entypo name='location-pin' size={25} color='#ED3E7A'/>
           <Text style={styles.textInfoSeeMore}>{this.state.item.store_address}</Text>
         </View>
-        <View style={{flexDirection:'row'}}>
-          <Text style={styles.textSeeMore}>Thể loại:</Text>
-          <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
+        <View style={styles.wrapper}>
+            <Text style={styles.textSeeMore}>Thể loại: </Text>
+            <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
         </View>
       </View>
     )
   };
-  componentHideAndShow = async () => {
-    await this.setState({ content: !this.state.content })
-    if (this.state.content === true)
-      this.setState({ see: 'Ẩn bớt' })
-    else
-      this.setState({ see: 'Xem thêm' })
-  }
 
   render() {
-    const {see,content}=this.state;
+    const {see,content,contentSeeMap}=this.state;
     region = {
       latitude: this.state.location.lat,
       longitude: this.state.location.lng,
@@ -78,26 +82,28 @@ export default class InfoScreen extends Component {
       <View style={styles.container}>
         <View style={styles.title}>
           <TouchableOpacity onPress={() => this.props.navigation.pop()}>
-            <AntDesign name="arrowleft" size={27} />
+            <AntDesign name="arrowleft" size={27} color='gray'/>
           </TouchableOpacity>
           <Text style={styles.textTitle}>Thông tin sản phẩm</Text>
         </View>
         <View style={styles.article}>
           <FeedItem item={this.props.navigation.getParam('item')} />
         </View>
-        <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
-          <Text style={styles.lable}>{see}</Text>
-        </TouchableOpacity>
-        <View>
-          {content ? <this._seeAdd /> : null}
+        <View style={styles.wrapperContent}>
+          <TouchableOpacity style={styles.hint} onPress={this.componentHideAndShow}>
+            <Text style={styles.lable}>{see}</Text>
+          </TouchableOpacity>
+          <View>
+            {content ? <this._seeAdd /> : null}
+          </View>
+          <MapView style={{ flex:contentSeeMap, marginHorizontal: '3%'}} region={region}>
+            <Marker
+              coordinate={coordinate}
+              title={this.state.item.store_name}
+              description={this.state.item.store_address}
+            />
+          </MapView>
         </View>
-        <MapView style={{ flex: 0.7, marginHorizontal: '3%' }} region={region}>
-          <Marker
-            coordinate={coordinate}
-            title={this.state.item.store_name}
-            description={this.state.item.store_address}
-          />
-        </MapView>
       </View>
     );
   }
@@ -116,42 +122,45 @@ const styles = StyleSheet.create({
     marginTop: '6%',
     marginHorizontal: '2%',
     borderBottomWidth: 0.5,
-    // backgroundColor:'red',
     flexDirection: 'row',
     alignItems: 'center'
   },
   textTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
-    marginLeft: 30,
-    // fontFamily:'sans-serif',
+    fontWeight: '800',
+    marginLeft: '18%',
+  },
+  article: {
+    flex: 0.18,
+    marginHorizontal: '3%',
+  },
+  wrapperContent:{
+    flex:0.74,
   },
   hint: {
-    flex: 0.028,
-    marginHorizontal: '3%',
+    flex: 0.04,
+    marginHorizontal: '4%',
     flexDirection:'row-reverse',
+    alignItems:'flex-start',
   },
   lable: {
     color: '#ED3E7A',
     textDecorationLine: 'underline'
   },
-  article: {
-    marginHorizontal: '3%',
-    flex: 0.18,
-    //backgroundColor:'red'
-  },
   WrapperSeeMore:{
     marginHorizontal:'3%',
     marginVertical: '1%',
-    justifyContent:'flex-start'
-    //backgroundColor:'red',
+    justifyContent:'flex-start',
   },
   textSeeMore:{
     fontSize:16,
     fontWeight:'bold',
-    //justifyContent:'flex-start'
   },
   textInfoSeeMore:{
     width:300,
-  }
+  },
+  wrapper:{
+  flexDirection:'row',
+  alignItems:'flex-end'
+  },
 })
