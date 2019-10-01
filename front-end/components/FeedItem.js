@@ -9,7 +9,7 @@ export default class FeedItem extends Component {
     };
   }
   render() {
-    const {item:{image,store_name,km,category}}=this.props;
+    const {item:{rating,review,image,store_name,km,category}}=this.props;
     return (
       <View style={styles.container}>
           <Image resizeMode={"contain"} style={styles.image} source={{uri:image}} />
@@ -20,8 +20,8 @@ export default class FeedItem extends Component {
                 <Text style={[styles.label,{marginTop:7}]}>{Math.round(km*100)/100} km</Text>
               </View>
               <View style={styles.styleRating}>
-                {/* <Rating type='star' imageSize={20} startingValue={1 + (Math.random()*4)} />   */}
-                {/* <Text style={styles.core}>{Math.round(1 + Math.random()*99)} đánh giá</Text> */}
+                <Rating type='star' imageSize={20} startingValue={rating} />  
+                <Text style={styles.core}>{review} đánh giá</Text>
               </View>
         </View>
       </View>
