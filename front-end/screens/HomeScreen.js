@@ -115,7 +115,7 @@ export default class HomeScreen extends Component {
         <FlatList style={{flex:0.93}}
           onEndReached={() => this.getList(this.state.page + 1)}
           onEndReachedThreshold={0.1}
-          data={listArticles}
+          data={listArticles.filter(e=>this.filterList(e))}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index.toString()}
         />

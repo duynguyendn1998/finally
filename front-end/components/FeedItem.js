@@ -21,7 +21,7 @@ export default class FeedItem extends Component {
               </View>
               <View style={styles.styleRating}>
                 {/* <Rating type='star' imageSize={20} startingValue={1 + (Math.random()*4)} />   */}
-                <Text style={styles.core}>{Math.round(1 + Math.random()*99)} đánh giá</Text>
+                {/* <Text style={styles.core}>{Math.round(1 + Math.random()*99)} đánh giá</Text> */}
               </View>
         </View>
       </View>
