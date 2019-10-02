@@ -5,7 +5,7 @@ import SearchDesign from '../components/SearchDesign';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { api } from '../config';
-import {list} from '../assets/data';
+// import {list} from '../assets/data';
 import { TabBar,TabView, SceneMap } from 'react-native-tab-view';
 
 export default class HomeScreen extends Component {
@@ -14,7 +14,7 @@ export default class HomeScreen extends Component {
     this.state = {
       isCheckRating: true,
       isCheckAround: false,
-      listArticles:list,
+      listArticles:[],
       search: '',
       index: 0,
       routes: [
@@ -43,10 +43,14 @@ export default class HomeScreen extends Component {
     await this.setState({ location });
     //history
     const user_id = await AsyncStorage.getItem('user_id');
-    let response = await fetch(api + `/user?user_id=${user_id}&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
-    let historyList = await response.json();
-    await AsyncStorage.setItem('historyList', JSON.stringify(historyList));
-    await this.getList();
+    try{
+      let response = await fetch(api + `/user?user_id=${user_id}&long=${this.state.location.longitude}&lat=${this.state.location.latitude}`);
+      let historyList = await response.json();
+      await AsyncStorage.setItem('historyList', JSON.stringify(historyList));
+      await this.getList();
+    } catch(e){
+      console.log(e)
+    }
   }
   getList = async (page = 1) => {
     if (page === 1) {
@@ -56,15 +60,23 @@ export default class HomeScreen extends Component {
     }
     await this.setState({ page })
     if (this.state.isCheckAround && page===1) {
-      response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
-      let listArticles = this.state.listArticles.concat(await response.json());
-      await this.setState({ listArticles });
-      this.getAllArticle();
+      try{
+        let response = await fetch(api + `/search?text=&long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
+        let listArticles = this.state.listArticles.concat(await response.json());
+        await this.setState({ listArticles });
+        this.getAllArticle();
+      } catch(e){
+        console.log(e)
+      }
     }
     if (this.state.isCheckRating) {
-      response = await fetch(api + `/predict?long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
-      let listArticles = this.state.listArticles.concat(await response.json());
-      await this.setState({ listArticles });
+      try{
+        let response = await fetch(api + `/predict?long=${this.state.location.longitude}&lat=${this.state.location.latitude}&page=${page}`)
+        let listArticles = this.state.listArticles.concat(await response.json());
+        await this.setState({ listArticles });
+      } catch(e){
+        console.log(e)
+      }
     }
   }
   getInfo = (item) => {
