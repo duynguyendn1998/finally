@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import FeedItem from '../components/FeedItem';
-import { AntDesign,Entypo,Foundation } from '@expo/vector-icons';
+import { AntDesign,Entypo,Foundation,MaterialCommunityIcons} from '@expo/vector-icons';
 
 export default class InfoScreen extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ export default class InfoScreen extends Component {
             <Text style={styles.textInfoSeeMore}>{this.state.item.amount}</Text>
           </View>
           <View style={styles.wrapper}>
-            <Text style={styles.textSeeMore}>Thể loại:</Text>
+            <MaterialCommunityIcons name='dictionary' size={25} color='#ED3E7A'/>
             <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
           </View>
         </View>
@@ -59,7 +59,7 @@ export default class InfoScreen extends Component {
           <Text style={styles.textInfoSeeMore}>{this.state.item.store_address}</Text>
         </View>
         <View style={styles.wrapper}>
-            <Text style={styles.textSeeMore}>Thể loại: </Text>
+            <MaterialCommunityIcons name='dictionary' size={25} color='#ED3E7A'/>
             <Text style={styles.textInfoSeeMore}>{this.state.item.category}</Text>
         </View>
       </View>
@@ -82,7 +82,7 @@ export default class InfoScreen extends Component {
       <View style={styles.container}>
         <View style={styles.title}>
           <TouchableOpacity onPress={() => this.props.navigation.pop()}>
-            <AntDesign name="arrowleft" size={27} color='gray'/>
+            <AntDesign name="arrowleft" size={27} color='black'/>
           </TouchableOpacity>
           <Text style={styles.textTitle}>Thông tin sản phẩm</Text>
         </View>

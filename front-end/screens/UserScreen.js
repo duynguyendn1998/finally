@@ -31,7 +31,7 @@ export default class UserScreen extends Component {
               <AntDesign name="right" size={25}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Support")}>
+            <TouchableOpacity>
               <View style={styles.wrapper}>
                 <Text style={styles.textLable}>Hỗ trợ</Text>
                 <AntDesign name="right" size={25}/>

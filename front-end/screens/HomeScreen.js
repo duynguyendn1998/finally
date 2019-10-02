@@ -14,7 +14,7 @@ export default class HomeScreen extends Component {
     this.state = {
       isCheckRating: true,
       isCheckAround: false,
-      listArticles:[],
+      listArticles:list,
       search: '',
       index: 0,
       routes: [
@@ -26,14 +26,13 @@ export default class HomeScreen extends Component {
 
   renderTabBar(props) {
     return (<TabBar
-    style={{backgroundColor: '#FFFFFF', elevation: 0,borderColor:'#ED3E7A', borderBottomWidth: 0.2, height:50}}
-    labelStyle={{color: 'black', fontSize: 18, fontWeight: 'bold'}}
+    style={styles.tab}
+    labelStyle={styles.textStyle}
     {...props}
     indicatorStyle={{backgroundColor: '#ED3E7A', height: 2.8}}
     />
     );
     }
-
   async componentWillMount() {
     let status = await Permissions.askAsync(Permissions.LOCATION);
     let location = await Location.getCurrentPositionAsync({});
@@ -143,42 +142,47 @@ export default class HomeScreen extends Component {
         <ActivityIndicator />
       </View>
     );
-    // if (listArticles.length > 0) {
-    //   listArticles = listArticles.filter(e => this.filterList(e))
-    // }
-    // if (listArticles.length)
-        return (
-          <View style={styles.container}>
-          <View style={styles.search}>
-              <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
-          </View>
-          <TabView 
-            renderTabBar={this.renderTabBar}
-            navigationState={this.state}
-            renderScene={SceneMap({
-              isCheckRating: FirstRoute,
-              isCheckAround: SecondRoute,
-            })}
-            onIndexChange={this.onCheck}
-          />
-          </View>
-        );
-      // return (
-      //   <View style={styles.container}>
-      //   <View style={styles.search}>
-      //       <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
-      //   </View>
-      //   <TabView
-      //     navigationState={this.state}
-      //     renderScene={SceneMap({
-      //       isCheckRating: FirstRoute1,
-      //       isCheckAround: SecondRoute1,
-      //     })}
-      //     onIndexChange={index => this.setState({ index })}
-      //   />
-      //   </View>
-      // );
-   }
+    if (listArticles.length > 0) {
+      listArticles = listArticles.filter(e => this.filterList(e))
+    }
+    if (listArticles.length)
+    {
+      return (
+        <View style={styles.container}>
+        <View style={styles.search}>
+            <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
+        </View>
+        <TabView 
+          renderTabBar={this.renderTabBar}
+          navigationState={this.state}
+          renderScene={SceneMap({
+            isCheckRating: FirstRoute,
+            isCheckAround: SecondRoute,
+          })}
+          onIndexChange={this.onCheck}
+        />
+        </View>
+      );
+    }
+    else{
+      return (
+        <View style={styles.container}>
+        <View style={styles.search}>
+            <SearchDesign search={this.state.search} updateSearch={this.updateSearch} menu={() => this.props.navigation.navigate('User')} />
+        </View>
+        <TabView
+          renderTabBar={this.renderTabBar}
+          navigationState={this.state}
+          renderScene={SceneMap({
+            isCheckRating: FirstRoute1,
+            isCheckAround: SecondRoute1,
+          })}
+          onIndexChange={index => this.setState({ index })}
+        />
+        </View>
+      );
+    }
+  }
 }
 const xoa_dau = str => {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -224,5 +228,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontWeight: '200',
     marginHorizontal:'3%'
+  },
+  tab:{
+  height:55,
+  backgroundColor: '#FFFFFF', 
+  elevation: 0,
+  borderColor:'#ED3E7A',
+  borderBottomWidth: 0.5,
+  justifyContent:'center'
+  },
+  textStyle:{
+    color: 'black',
+    fontSize: 18, 
+    fontWeight: 'bold'
   }
 });

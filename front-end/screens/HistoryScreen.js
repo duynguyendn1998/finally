@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, AsyncStorage } from 'react-native';
-import { list } from '../assets/data';
 import FeedItem from '../components/FeedItem';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -34,12 +33,10 @@ export default class HistoryScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.title}>
-          <View style={{flexDirection:'row'}}>
             <TouchableOpacity onPress={() => this.props.navigation.pop()}>
               <AntDesign name="arrowleft" size={27} />
             </TouchableOpacity>
             <Text style={styles.textTitle}>Lịch sử tìm kiếm gần đây</Text>
-          </View>
         </View>
         <View style={styles.textLable}>
           <Text style={styles.label}>Bạn đã đến</Text>
@@ -64,16 +61,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: '1.5%',   
-    marginTop: '7%',
+    marginTop: '6%',
     backgroundColor: '#fff',
   },
   title: {
-    flex: 0.08,
-     marginHorizontal: '2%',
-     justifyContent:'center'
+     flex: 0.08,
+     marginHorizontal: '2.5%',
+     alignItems:'center',
+     flexDirection:'row',
   },
   textLable: {
     flex: 0.08,
+    borderTopWidth: 0.5,
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     fontSize: 23,
-    fontWeight:"500",
-    marginLeft: 40,
+    fontWeight:"400",
+    marginLeft: '12%',
   }
 });

@@ -20,7 +20,7 @@ export default class FeedItem extends Component {
                 <Text style={[styles.label,{marginTop:7}]}>{Math.round(km*100)/100} km</Text>
               </View>
               <View style={styles.styleRating}>
-                <Rating type='star' imageSize={20} startingValue={rating} />  
+                <Rating type='custom' ratingColor='#ED3E7A' imageSize={20} startingValue={rating} />  
                 <Text style={styles.core}>{review} đánh giá</Text>
               </View>
         </View>
