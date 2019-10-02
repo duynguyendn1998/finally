@@ -145,13 +145,13 @@ export default class HomeScreen extends Component {
     const FirstRoute1 = () => (
       <View style={styles.content}>
         <Text style={styles.label}>Thèm món này chứ?</Text>
-        <ActivityIndicator />
+        <Text style={{textAlign:'center',marginTop:20, fontSize:18}}>Không tìm thấy kết quả</Text>
       </View>
     );
     const SecondRoute1 = () => (
       <View style={styles.content}>
         <Text style={styles.label}>Thèm món này chứ?</Text>
-        <ActivityIndicator />
+        <Text style={{textAlign:'center',marginTop:20, fontSize:18}}>Không tìm thấy kết quả</Text>
       </View>
     );
     if (listArticles.length > 0) {
