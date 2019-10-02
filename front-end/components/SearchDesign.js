@@ -14,7 +14,8 @@ export default class SearchDesign extends Component {
       <View style={styles.container}>
         <View style={styles.containerSearch}> 
           <SearchBar
-            lightTheme round 
+            // lightTheme round 
+            round
             containerStyle={style=styles.containerStyle}
             inputStyle={styles.inputSearch}
             onChangeText={this.props.updateSearch}

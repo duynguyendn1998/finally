@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation';
 
 import HomeScreen from '../screens/HomeScreen';
 import InfoScreen from '../screens/InfoScreen';
-import History from '../components/History';
 import UserScreen from '../screens/UserScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 
@@ -26,7 +25,7 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     Info: InfoScreen,
-    User:UserStack,
+    User:UserStack
   },
   config
 );
