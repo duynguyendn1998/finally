@@ -20,8 +20,10 @@ export default class UserScreen extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.pop()}>
                 <Feather name="x" size={27} color='#fff'/>
             </TouchableOpacity>
-            <View style={styles.Wrapper}>
-              <Text style={styles.textName}>Đào Bảo Duy</Text>
+            <View style={styles.imageWrapper}>
+              <Image  style={styles.image}
+                    source={require('../assets//images//Splash1.png')}/>
+              <Text style={styles.textName}>Nguyen Van A</Text>
             </View>
         </View>
         <View style={styles.content}>
@@ -31,7 +33,7 @@ export default class UserScreen extends Component {
               <AntDesign name="right" size={25}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("History")}>
               <View style={styles.wrapper}>
                 <Text style={styles.textLable}>Hỗ trợ</Text>
                 <AntDesign name="right" size={25}/>
@@ -59,7 +61,6 @@ const styles = StyleSheet.create({
         marginTop:'2.4%',
         flex: 0.3,
         backgroundColor: "#ED3E7A",
-        justifyContent:'space-between'
       },
       content: {
         flex: 0.7,
@@ -73,9 +74,19 @@ const styles = StyleSheet.create({
         //flex:0.96,
         marginLeft: 8,
         color:'#fff',
-        fontSize:27,
-        fontWeight:'300',
-        marginBottom:'3%'
+        fontSize:25,
+      },
+      image:{
+        height:120,
+        width:120,
+        borderRadius:60,
+      },
+      imageWrapper:{
+        flex:1,
+        marginTop:40,
+        marginHorizontal:'1.5%',
+        flexDirection: 'row',
+        alignItems:'center',
       },
       wrapper:{
         flexDirection:'row',

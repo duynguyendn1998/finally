@@ -37,14 +37,14 @@ export default class LoginScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Đăng nhập</Text>
-                <View style={[styles.inputArea,{marginTop: '5%'}]}>
+                <View style={styles.inputArea}>
                     <Text style={styles.lable}>SỐ ĐIỆN THOẠI</Text>
                     <TextInput style={styles.inputText}
                         placeholder=' Nhập số điện thoại của bạn'
                         onChangeText={this.changeText}
                         value={userid} />
                 </View>
-                <View style={[styles.inputArea,{marginBottom:'10%'}]}>
+                <View style={[styles.inputArea,{marginBottom:'8%'}]}>
                     <Text style={styles.lable}>MẬT KHẨU</Text>
                     <TextInput style={styles.inputText}
                         secureTextEntry={true}
@@ -52,7 +52,7 @@ export default class LoginScreen extends React.Component {
                         onChangeText={this.changePass}
                         value={password} />
                 </View>
-                <TouchableOpacity style={{width: '86%'}} onPress={this.onLogin}>
+                <TouchableOpacity onPress={this.onLogin}>
                     <View style={styles.buttonLogin}>
                         <Text style={styles.lable}>ĐĂNG NHẬP</Text>
                     </View>
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     inputArea: {
         width: '86%',
         height: 80,
+        marginTop: '5%',
         marginHorizontal: '7%'
     },
     lable: {
@@ -96,8 +97,10 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     buttonLogin: {
+        width: 200,
         height: 50,
         backgroundColor: '#5F2237',
+        marginHorizontal: '7%',
         alignItems: 'center',
         borderRadius: 6,
         justifyContent:'center'
